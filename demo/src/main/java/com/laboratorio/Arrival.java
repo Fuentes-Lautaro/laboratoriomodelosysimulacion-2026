@@ -1,6 +1,6 @@
 package com.laboratorio;
 
-public class Arrival implements Events {
+public class Arrival implements Event {
     private double clock;
     private int order;
 
@@ -13,4 +13,7 @@ public class Arrival implements Events {
         return order;
     }
 
+    public void planificate(FutureEventList fel, Server server){
+
+    }
 }

@@ -2,7 +2,7 @@ package com.laboratorio;
 
 import java.util.concurrent.Future;
 
-public interface Events {
+public interface Event {
 
     double clock();
 

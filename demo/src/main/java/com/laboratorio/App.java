@@ -13,7 +13,7 @@ public class App
         double clock = 0.0;
         while (clock < 60){
             Event e = fel.imminent();
-            e.planificate(fel, server);
+            e.planificate(fel, null);
             clock = e.clock();
         }
     }

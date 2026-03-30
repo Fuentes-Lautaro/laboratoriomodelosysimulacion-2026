@@ -1,6 +1,6 @@
 package com.laboratorio;
 
-public class EndOfService implements Events {
+public class EndOfService implements Event {
     private double clock;
     private int order;
 
@@ -12,4 +12,9 @@ public class EndOfService implements Events {
     public int order() {
         return order;
     }
+    
+    public void planificate(FutureEventList fel, Server server){
+        
+    }
+
 }
