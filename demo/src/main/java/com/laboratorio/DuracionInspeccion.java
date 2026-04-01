@@ -1,6 +1,6 @@
 package com.laboratorio;
 public class DuracionInspeccion {
-    public static double tiempoSalida(){
+    public static int tiempoSalida(){
         double inspeccion = nrmRandom();
         if (inspeccion < 0.05) return 1;
         if (inspeccion < 0.22) return 2;

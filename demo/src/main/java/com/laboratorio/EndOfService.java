@@ -18,6 +18,15 @@ public class EndOfService implements Event {
     }
     
     public void planificate(FutureEventList fel, Server server){
-        
+        if (server == NULL){ //PREGUNTO SI EL SERVER ESTA OCUPADO
+            //COLA = COLA - 1, PREGUNTAR
+            int tiempoServicio = tiempoSalida();
+            //PLANIFICO EL PROXIMO FIN DE SERVICIO
+            fel.insert(new EndOfService(this.clock + tiempoServicio));
+        }else{
+            //SERVER == DESOCUPADO
+        }
+        //COLECCIONAR ESTADISTICAS
+        //TERMINA EL PLANIFICATE
     }
 }
