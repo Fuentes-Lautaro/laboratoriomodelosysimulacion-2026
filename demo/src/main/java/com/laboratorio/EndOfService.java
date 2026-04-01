@@ -9,6 +9,10 @@ public class EndOfService implements Event {
         this.order = 0;
     }
 
+    public double clock(){
+        return clock;
+    }
+
     public int order() {
         return order;
     }
@@ -16,5 +20,4 @@ public class EndOfService implements Event {
     public void planificate(FutureEventList fel, Server server){
         
     }
-
 }

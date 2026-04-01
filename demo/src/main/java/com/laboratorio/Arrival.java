@@ -9,6 +9,10 @@ public class Arrival implements Event {
         this.order = 10;
     }
 
+    public double clock()[
+        return clock;
+    ]
+    
     public int order() {
         return order;
     }
