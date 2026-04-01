@@ -25,9 +25,8 @@ public class FutureEventList {
             }else{
                 return 0; //SI SON IGUALES TOMA PRIORIDAD LA SALIDA
             }
-
         }
-        
+
         
     }
        
