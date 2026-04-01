@@ -12,12 +12,12 @@ public class Arrival implements Event {
     public double clock()[
         return clock;
     ]
-    
+
     public int order() {
         return order;
     }
 
     public void planificate(FutureEventList fel, Server server){
-
+        
     }
 }
