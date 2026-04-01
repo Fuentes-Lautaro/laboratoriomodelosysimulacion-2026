@@ -3,9 +3,12 @@ package com;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.laboratorio.Event;
+
 public class FutureEventList {
     private List<Event> fel;
-    private int comparator; 
+    private Comparator<Event> comparator; 
+
     public FutureEventList(){
         this.fel = new ArrayList<>();
         this.comparator = new Comparator<Event>();
@@ -26,8 +29,23 @@ public class FutureEventList {
                 return 0; //SI SON IGUALES TOMA PRIORIDAD LA SALIDA
             }
         }
-
-        
     }
-       
+    
+    public void insert(Event e){
+        this.fel.add(e);
+        this.fel.sort(this.comparator);
+    }
+
+    public Event imminent(){
+        return this.fel.remove(0);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Event e : this.fel) {
+            sb.append(String.format(("%s: %f\n", e.getClass().getSimpleName(), e.clock()));)
+        }
+        return sb.toString();
+    }
 }
