@@ -1,26 +1,29 @@
 package com.laboratorio;
 
 public class EndOfService implements Event {
-    private double clock;
-    private int order;
+    private final double clock;
+    private final int order;
 
     public EndOfService(Double clock) {
         this.clock = clock;
         this.order = 0;
     }
 
-    public double clock(){
-        return clock;
+    @Override
+    public double getClock(){
+        return this.clock;
     }
 
-    public int order() {
-        return order;
+    @Override
+    public int getOrder(){
+        return this.order;
     }
     
+    @Override
     public void planificate(FutureEventList fel, Server server){
-        if (server == NULL){ //PREGUNTO SI EL SERVER ESTA OCUPADO
+        if (server.libre == true){ //PREGUNTO SI EL SERVER ESTA OCUPADO
             //COLA = COLA - 1, PREGUNTAR
-            int tiempoServicio = tiempoSalida();
+            int tiempoServicio = DuracionInspeccion.tiempoSalida();
             //PLANIFICO EL PROXIMO FIN DE SERVICIO
             fel.insert(new EndOfService(this.clock + tiempoServicio));
         }else{
