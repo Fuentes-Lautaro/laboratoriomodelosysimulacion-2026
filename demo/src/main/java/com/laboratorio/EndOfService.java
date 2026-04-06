@@ -18,12 +18,12 @@ public class EndOfService implements Event {
     public int getOrder(){
         return this.order;
     }
-    
+   
     @Override
     public void planificate(FutureEventList fel, Server server){
         if (server.libre == true){ //PREGUNTO SI EL SERVER ESTA OCUPADO
             //COLA = COLA - 1, PREGUNTAR
-            int tiempoServicio = DuracionInspeccion.tiempoSalida();
+            int tiempoServicio = DuracionServicio.tiempoServicio();
             //PLANIFICO EL PROXIMO FIN DE SERVICIO
             fel.insert(new EndOfService(this.clock + tiempoServicio));
         }else{
