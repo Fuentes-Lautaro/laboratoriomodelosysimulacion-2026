@@ -9,11 +9,11 @@ public class Arrival implements Event {
         this.order = 10;
     }
 
-    public double clock()[
+    public double getClock(){
         return clock;
-    ]
+    }
 
-    public int order() {
+    public int getOrder() {
         return order;
     }
 

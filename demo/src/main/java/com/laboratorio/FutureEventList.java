@@ -1,9 +1,9 @@
-package com;
+package com.laboratorio;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.laboratorio.Event;
+
 
 public class FutureEventList {
     private List<Event> fel;
