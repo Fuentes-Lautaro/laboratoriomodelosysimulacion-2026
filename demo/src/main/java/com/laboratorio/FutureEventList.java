@@ -31,8 +31,6 @@ public class FutureEventList {
         };
     }
 
-    
-    
     public void insert(Event e){
         this.fel.add(e);
         this.fel.sort(this.comparator);
