@@ -17,6 +17,7 @@ public class Arrival implements Event {
         return order;
     }
 
+    @Override
     public void planificate(FutureEventList fel, Server server){
         if (server == null){ //CONSULTO SI SERVER ESTA OCUPADO
             // server = 
@@ -26,7 +27,7 @@ public class Arrival implements Event {
             //agrego el evento a la cola
         }
         int tea = tiempoEntreArribos(); //GENERO UN NUEVO TIEMPO ENTRE ARRIBOS
-        fel.insert(new Arrival(this.clock + tea))); //INSERTO EL NUEVO EVENTO DE ARRIBO
+        fel.insert(new Arrival(this.clock + tea)); //INSERTO EL NUEVO EVENTO DE ARRIBO
 
         //COLECCIONO ESTADISTICAS
     }
