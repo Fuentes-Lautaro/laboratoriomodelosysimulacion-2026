@@ -14,14 +14,14 @@ public class FutureEventList {
         this.comparator = new Comparator<Event>(){
             @Override
             public int compare (Event e1, Event e2){
-                 if (e1.clock() < e2.clock()){
+                 if (e1.getClock() < e2.getClock()){
                     return -1; //e1 < e2       
-                }else if (e1.clock() > e2.clock()){
+                }else if (e1.getClock() > e2.getClock()){
                     return 1; //e1 > e2
                 }else{
-                    if (e1.order() < e2.order() ) {
+                    if (e1.getOrder() < e2.getOrder() ) {
                     return -1; //si e1 < e2
-                }else if(e1.order() > e2.order()){
+                }else if(e1.getOrder() > e2.getOrder()){
                     return 1; //si e1 > e2
                 }else{
                     return 0; //SI SON IGUALES TOMA PRIORIDAD LA SALIDA
