@@ -32,5 +32,6 @@ public class Arrival implements Event {
         fel.insert(new Arrival(this.clock + tea)); //INSERTO EL NUEVO EVENTO DE ARRIBO
 
         //COLECCIONO ESTADISTICAS
+        //TERMINA EL PLANIFICATE
     }
 }
