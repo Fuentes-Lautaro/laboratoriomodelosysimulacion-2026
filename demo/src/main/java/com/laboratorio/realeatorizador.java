@@ -1,9 +1,8 @@
 package com.laboratorio;
 
-public class realeatorizador {
-    //private double random;
-
-    public double nroRandom(){
-        return Math.random();
+public class Realeatorizador {
+    
+    public static double nroRandom() {
+        return Math.random(); 
     }
 }
