@@ -2,9 +2,9 @@ package com.laboratorio;
 
 public interface Event {
 
-    double clock();
+    double getClock();
 
-    int order();
+    int getOrder();
 
     void planificate(FutureEventList fel, Server server);
 }
