@@ -14,7 +14,7 @@ public class Arrival implements Event {
     ]
 
     public int order() {
-        return order;
+        return this.order;
     }
 
     public void planificate(FutureEventList fel, Server server){
