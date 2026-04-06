@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 public class FutureEventList {
     private List<Event> fel;
-    private Comparator<Event> comparator; 
+    private final Comparator<Event> comparator; 
 
     public FutureEventList(){
         this.fel = new ArrayList<>();
@@ -46,7 +46,7 @@ public class FutureEventList {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Event e : this.fel) {
-            sb.append(String.format("%s: %f\n", e.getClass().getSimpleName(), e.clock()));
+            sb.append(String.format("%s: %f\n", e.getClass().getSimpleName(), e.getClock()));
         }
         return sb.toString();
     }

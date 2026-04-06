@@ -11,7 +11,7 @@ public class App
         while (clock < 60){
             Event e = fel.imminent();
             e.planificate(fel, null);
-            clock = e.clock();
+            clock = e.getClock();
         }
     }
 }
