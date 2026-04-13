@@ -1,6 +1,6 @@
-package com.laboratorio;
+package com.laboratorio.dominio;
 
-public class Avion {
+public class Entity {
     private static int contador  = 0;
     private int id;
     private double tiempoArribo;
