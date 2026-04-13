@@ -1,4 +1,8 @@
-package com.laboratorio;
+package com.laboratorio.scenario;
+
+import com.laboratorio.dominio.Event;
+import com.laboratorio.dominio.FutureEventList;
+import com.laboratorio.dominio.Server;
 
 public class Arrival implements Event {
     private final double clock;
@@ -21,7 +25,7 @@ public class Arrival implements Event {
 
     @Override
     public void planificate(FutureEventList fel, Server server){
-        if (server.libre == true){ //CONSULTO SI SERVER ESTA OCUPADO
+        if (server.isBusy() == true){ //CONSULTO SI SERVER ESTA OCUPADO
             // server = 
             int tS = DuracionServicio.tiempoServicio(); //GENERO UN TIEMPO DE SERVICIO
             fel.insert(new EndOfService(this.clock + tS)); //INSERTO EL EVENTO SALIDA DEL ELEMENTO ACTUAL

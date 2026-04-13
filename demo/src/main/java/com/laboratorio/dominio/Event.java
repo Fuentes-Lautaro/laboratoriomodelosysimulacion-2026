@@ -1,4 +1,4 @@
-package com.laboratorio;
+package com.laboratorio.dominio;
 
 public interface Event {
 
@@ -7,4 +7,8 @@ public interface Event {
     int getOrder();
 
     void planificate(FutureEventList fel, Server server);
+
+    Entity getEntity();
+
+    Distribution getDistribution();
 }

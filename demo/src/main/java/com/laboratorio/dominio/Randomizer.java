@@ -1,6 +1,6 @@
-package com.laboratorio;
+package com.laboratorio.dominio;
 
-public class Realeatorizador {
+public class Randomizer {
     
     public static double nroRandom() {
         return Math.random(); 
