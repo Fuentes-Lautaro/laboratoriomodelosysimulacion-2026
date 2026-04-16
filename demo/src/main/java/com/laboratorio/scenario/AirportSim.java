@@ -6,6 +6,7 @@
 package com.laboratorio.scenario;
 
 import com.laboratorio.dominio.Engine;
+import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
 import com.laboratorio.dominio.FutureEventList;
 import com.laboratorio.dominio.Server;
@@ -23,10 +24,10 @@ public class AirportSim implements Engine {
     public AirportSim(double simLenght){
         this.simLenght = simLenght;
         this.fel = new FutureEventList();
-        this.fel.insert(new Arrival(0d));
-        this.server = new Airstrip(1);
+        this.fel.insert(new Arrival(0d, new Entity(), new Table1(), new Table2())) ;
+        this.server = new Airstrip(1, new MyQueue());
     }
-
+    
     @Override
     public void run() {
 

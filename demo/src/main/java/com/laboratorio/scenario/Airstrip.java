@@ -9,8 +9,9 @@ public class Airstrip implements Server {
     private Entity entity;
     private Queue queue;
 
-    public Airstrip(int id) {
+    public Airstrip(int id, Queue queue) {
         this.id = id;
+        this.queue = queue;
     }
 
     @Override

@@ -10,11 +10,13 @@ public class EndOfService implements Event {
     private final double clock;
     private final int order;
     private final Entity entity;
+    private final Distribution distribution;
 
-    public EndOfService(Double clock, Entity e) {
+    public EndOfService(Double clock, Entity e, Distribution distribution) {
         this.clock = clock;
         this.order = 0;
         this.entity = e;
+        this.distribution = distribution;
     }
 
     @Override
@@ -26,22 +28,8 @@ public class EndOfService implements Event {
     public int getOrder(){
         return this.order;
     }
-   
-    @Override
-    public void planificate(FutureEventList fel, Server server){
-        if (server.getQueue().size() > 0){ //PREGUNTO SI hay alguien waiting.
-            //COLA = COLA - 1, PREGUNTAR
-            int tiempoServicio = DuracionServicio.tiempoServicio();
-            //PLANIFICO EL PROXIMO FIN DE SERVICIO
-            fel.insert(new EndOfService(this.clock + tiempoServicio));
-        }else{
-            //SERVER == DESOCUPADO
-        }
-        //COLECCIONAR ESTADISTICAS
-        //TERMINA EL PLANIFICATE
-    }
 
-    @Override
+     @Override
     public Entity getEntity() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -49,5 +37,24 @@ public class EndOfService implements Event {
     @Override
     public Distribution getDistribution() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+   
+    @Override
+    public void planificate(FutureEventList fel, Server server){
+
+        Entity e = null;
+
+        if (server.getQueue().size() > 0){ //PREGUNTO SI hay alguien waiting.
+
+            e = server.getQueue().next();
+            server.setEntity(e);
+
+            fel.insert(new EndOfService(this.clock+this.distribution.sample(), e, this.distribution));
+
+        }else{
+            server.free();
+        }
+        //COLECCIONAR ESTADISTICAS
+        //TERMINA EL PLANIFICATE
     }
 }

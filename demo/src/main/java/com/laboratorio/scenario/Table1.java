@@ -15,10 +15,10 @@ import com.laboratorio.dominio.Randomizer;
 public class Table1 implements Distribution {
 
     @Override
-    public double sample(double cumulativeProbability) {
-        double tea = Randomizer.nroRandom();
-        if (tea < 0.35) return 10d;
-        if (tea < 0.8) return 15d;
+    public double sample() {
+        double r = Randomizer.nroRandom();
+        if (r < 0.35) return 10d;
+        if (r < 0.8) return 15d;
         return 17d;
     }
 }

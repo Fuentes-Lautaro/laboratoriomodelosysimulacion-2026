@@ -3,9 +3,29 @@ package com.laboratorio.dominio;
 
 public interface  Queue {
 
-    Entity next(); //TRAIGO LA CABEZA Y DESTRUYO
+    /**
+     * 
+     * 
+     * @return SI CLARO
+     */
+    Entity next();
+
+    /**
+     * 
+     * @param e
+     */
     void enqueue(Entity e); //PONE EN COLA A LA ENTIDAD
+
+    /**
+     * 
+     * @return
+     */
     int size();
+
+    /**
+     * 
+     * @return
+     */
     Entity peek(); //ver la cabeza sin destruir
 
 }
