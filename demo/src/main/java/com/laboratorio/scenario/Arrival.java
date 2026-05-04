@@ -12,15 +12,19 @@ public class Arrival implements Event {
     private final Entity entity;
     private Distribution arrivalDistribution;
     private Distribution EoSDistribution;
-    private Collector collector;
+    private CollectorTimeOnSystem collectorToS;
+    private CollectorTimeWait collectorWait;
+    private CollectorSizeQueue collectorSQ;
 
-    public Arrival(Double clock, Entity entity, Distribution arrivalDistribution, Distribution EoSDistribution, Collector collector) {
+    public Arrival(Double clock, Entity entity, Distribution arrivalDistribution, Distribution EoSDistribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, CollectorSizeQueue collectorSQ) {
         this.clock = clock;
         this.order = 10;
         this.entity = entity;
         this.arrivalDistribution = arrivalDistribution;
         this.EoSDistribution = EoSDistribution;
-        this.collector = collector;
+        this.collectorToS = collectorToS;
+        this.collectorWait = collectorWait;
+        this.collectorSQ = collectorSQ;
     }
 
     @Override
@@ -46,17 +50,17 @@ public class Arrival implements Event {
     @Override
     public void planificate(FutureEventList fel, Server server){
         this.entity.setTimeArrival(this.clock);
-        collector.collectArrival();
+        this.collectorToS.collectArrival();
         if (server.isBusy()){
             server.getQueue().enqueue(this.entity);
-
+            collectorSQ.collect(server.getQueue().size());
         }else{
             server.setEntity(this.entity);
-            
-            fel.insert(new EndOfService(this.clock + this.EoSDistribution.sample(), this.entity, this.EoSDistribution, this.collector)); //INSERTO EL EVENTO SALIDA DEL ELEMENTO ACTUAL
+            collectorSQ.collect(server.getQueue().size());
+            fel.insert(new EndOfService(this.clock + this.EoSDistribution.sample(), this.entity, this.EoSDistribution, this.collectorToS, this.collectorWait)); //INSERTO EL EVENTO SALIDA DEL ELEMENTO ACTUAL
         }
 
-        fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.collector)); //INSERTO EL NUEVO EVENTO DE ARRIBO
+        fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.collectorToS, this.collectorWait, this.collectorSQ)); //INSERTO EL NUEVO EVENTO DE ARRIBO
 
         //COLECCIONO ESTADISTICAS
         //TERMINA EL PLANIFICATE

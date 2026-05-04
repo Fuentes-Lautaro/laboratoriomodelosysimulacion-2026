@@ -11,14 +11,16 @@ public class EndOfService implements Event {
     private final int order;
     private final Entity entity;
     private final Distribution distribution;
-    private Collector collector;
+    private CollectorTimeOnSystem collectorToS;
+    private CollectorTimeWait collectorWait;
 
-    public EndOfService(Double clock, Entity e, Distribution distribution, Collector collector) {
+    public EndOfService(Double clock, Entity e, Distribution distribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait) {
         this.clock = clock;
         this.order = 0;
         this.entity = e;
         this.distribution = distribution;
-        this.collector = collector;
+        this.collectorToS = collectorToS;
+        this.collectorWait = collectorWait;
     }
 
     @Override
@@ -51,12 +53,14 @@ public class EndOfService implements Event {
             e = server.getQueue().next();
             server.setEntity(e);
 
-            fel.insert(new EndOfService(this.clock+this.distribution.sample(), e, this.distribution, this.collector)); //INSERTO EL EVENTO DE SALIDA DEL ELEMENTO QUE ESTABA WAITING
+            this.collectorWait.collect(this.clock - e.getTimeArrival());
+
+            fel.insert(new EndOfService(this.clock+this.distribution.sample(), e, this.distribution, this.collectorToS, this.collectorWait)); //INSERTO EL EVENTO DE SALIDA DEL ELEMENTO QUE ESTABA WAITING
 
         }else{
             server.free();
         }
         
-        this.collector.collectEoS(this.entity.getTimeArrival(), this.clock);
+        this.collectorToS.collectEoS(this.clock - this.entity.getTimeArrival());
     }
 }

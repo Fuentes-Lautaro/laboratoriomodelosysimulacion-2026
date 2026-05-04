@@ -7,7 +7,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Engine e = new AirportSim(40320d);
+        Engine e = new AirportSim(100d);
         e.run();
         
     }

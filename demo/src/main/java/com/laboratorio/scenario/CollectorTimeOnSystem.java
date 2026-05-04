@@ -1,13 +1,13 @@
 package com.laboratorio.scenario;
 
-public class Collector {
+public class CollectorTimeOnSystem {
     private int totalEntitiesArrival;
     private int totalEntitiesEoS;
     private double maxTime;
     private double minTime;
     private double totalTime;
 
-    public Collector() {
+    public CollectorTimeOnSystem() {
         this.totalEntitiesArrival = 0;
         this.totalEntitiesEoS = 0;
         this.maxTime = 0;
@@ -19,9 +19,9 @@ public class Collector {
         this.totalEntitiesArrival++;
     }
 
-    public void collectEoS(double timeEoS, double time) {
+    public void collectEoS(double timeEoS) {
         this.totalEntitiesEoS++;
-        double timeInSystem = time - timeEoS;
+        double timeInSystem = timeEoS;
         this.totalTime += timeInSystem;
         if (timeInSystem > this.maxTime) {
             this.maxTime = timeInSystem;
@@ -32,6 +32,7 @@ public class Collector {
     }
 
     public void printReport() {
+        System.out.println(" ---   REPORTE DE TIEMPO EN EL SISTEMA --- ");
         System.out.println("Total de entidades que arribaron al sistema: " + this.totalEntitiesArrival);
         System.out.println("Total de entidades que salieron del sistema: " + this.totalEntitiesEoS);
         System.out.println("Tiempo máximo en el sistema: " + this.maxTime);
@@ -39,7 +40,8 @@ public class Collector {
         if (this.totalEntitiesEoS > 0) {
             System.out.println("Tiempo promedio en el sistema: " + (this.totalTime / this.totalEntitiesEoS));
         } else {
-            System.out.println("Ninguna entidad ha salido del sistema, no se puede calcular el tiempo promedio.");
+            System.err.println("Ninguna entidad ha salido del sistema, no se puede calcular el tiempo promedio.");
         }
+        System.out.println("");
     }
 }

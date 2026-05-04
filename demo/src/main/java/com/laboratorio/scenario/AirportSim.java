@@ -20,13 +20,17 @@ public class AirportSim implements Engine {
     private final double simLenght;
     private FutureEventList fel;
     private Server server;
-    private Collector collector;
+    private CollectorTimeOnSystem collectorToS;
+    private CollectorTimeWait collectorWait;
+    private CollectorSizeQueue collectorSQ;
 
     public AirportSim(double simLenght){
         this.simLenght = simLenght;
         this.fel = new FutureEventList();
-        this.collector = new Collector();
-        this.fel.insert(new Arrival(0d, new Entity(), new Table1(), new Table2(), this.collector)) ;
+        this.collectorToS = new CollectorTimeOnSystem();
+        this.collectorWait = new CollectorTimeWait();
+        this.collectorSQ = new CollectorSizeQueue();
+        this.fel.insert(new Arrival(0d, new Entity(), new Table1(), new Table2(), this.collectorToS, this.collectorWait, this.collectorSQ)) ;
         this.server = new Airstrip(1, new MyQueue());
     }
     
@@ -34,7 +38,9 @@ public class AirportSim implements Engine {
     public void run() {
 
         System.out.println(this.fel);
+
         Event e = this.fel.imminent();
+
         double clock = e.getClock();
 
         while (clock < this.simLenght) { 
@@ -46,7 +52,9 @@ public class AirportSim implements Engine {
             e = this.fel.imminent();
             clock = e.getClock();
         }
-        collector.printReport();
+        this.collectorToS.printReport();
+        this.collectorWait.printReport();
+        this.collectorSQ.printReport();
     }
 
 }
