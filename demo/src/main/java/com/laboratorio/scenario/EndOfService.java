@@ -61,6 +61,6 @@ public class EndOfService implements Event {
             server.free();
         }
         
-        this.collectorToS.collectEoS(this.clock - this.entity.getTimeArrival());
+        this.collectorToS.collect(this.clock - this.entity.getTimeArrival());
     }
 }

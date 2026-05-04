@@ -1,6 +1,7 @@
 package com.laboratorio.scenario;
+import com.laboratorio.dominio.Collector;
 
-public class CollectorTimeWait {
+public class CollectorTimeWait implements Collector{
     private double totalTimeWait;
     private int totalEntities;
     private double maxTimeWait;
@@ -13,6 +14,7 @@ public class CollectorTimeWait {
         this.minTimeWait = 0;
     }
 
+    @Override
     public void collect(double timeWait) {
         this.totalTimeWait += timeWait;
         this.totalEntities++;
@@ -24,6 +26,7 @@ public class CollectorTimeWait {
         }
     }
 
+    @Override
     public void printReport() {
         System.out.println(" ---   REPORTE DE TIEMPO DE ESPERA --- ");
         System.out.println("Total de entidades que esperaron: " + this.totalEntities);

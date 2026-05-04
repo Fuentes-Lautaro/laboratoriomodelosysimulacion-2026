@@ -1,6 +1,7 @@
 package com.laboratorio.scenario;
+import com.laboratorio.dominio.Collector;
 
-public class CollectorTimeOnSystem {
+public class CollectorTimeOnSystem implements Collector{
     private int totalEntitiesArrival;
     private int totalEntitiesEoS;
     private double maxTime;
@@ -19,7 +20,8 @@ public class CollectorTimeOnSystem {
         this.totalEntitiesArrival++;
     }
 
-    public void collectEoS(double timeEoS) {
+    @Override
+    public void collect(double timeEoS) {
         this.totalEntitiesEoS++;
         double timeInSystem = timeEoS;
         this.totalTime += timeInSystem;
@@ -31,6 +33,7 @@ public class CollectorTimeOnSystem {
         }
     }
 
+    @Override
     public void printReport() {
         System.out.println(" ---   REPORTE DE TIEMPO EN EL SISTEMA --- ");
         System.out.println("Total de entidades que arribaron al sistema: " + this.totalEntitiesArrival);
