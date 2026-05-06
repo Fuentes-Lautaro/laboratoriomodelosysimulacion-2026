@@ -6,8 +6,8 @@ public class CollectorSizeQueue implements Collector{
     private double minSizeQueue;
 
     public CollectorSizeQueue() {
-        this.maxSizeQueue = 0;
-        this.minSizeQueue = 0;
+        this.maxSizeQueue = Double.MIN_VALUE;
+        this.minSizeQueue = Double.MAX_VALUE;
     }
 
     @Override
@@ -15,9 +15,7 @@ public class CollectorSizeQueue implements Collector{
         if (sizeQueue > this.maxSizeQueue) {
             this.maxSizeQueue = sizeQueue;
         }
-        if (this.minSizeQueue == 0) {
-            this.minSizeQueue = sizeQueue;
-        }else if (sizeQueue < this.minSizeQueue) {
+        if (sizeQueue < this.minSizeQueue) {
             this.minSizeQueue = sizeQueue;
         }
     }

@@ -53,14 +53,17 @@ public class Arrival implements Event {
     public void planificate(FutureEventList fel, Server server){
         this.entity.setTimeArrival(this.clock);
         this.collectorToS.collectArrival();
+
         if (server.isBusy()){
+
             server.getQueue().enqueue(this.entity);
             collectorSQ.collect(server.getQueue().size());
+
         }else{
             
             server.setEntity(this.entity);
-            collectorSQ.collect(server.getQueue().size());
             fel.insert(new EndOfService(this.clock + this.EoSDistribution.sample(), this.entity, this.EoSDistribution, this.collectorToS, this.collectorWait));
+
         }
 
         fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL));

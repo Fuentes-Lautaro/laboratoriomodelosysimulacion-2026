@@ -47,18 +47,18 @@ public class EndOfService implements Event {
     public void planificate(FutureEventList fel, Server server){
 
         Entity e = null;
-
-        if (server.getQueue().size() > 0){ //PREGUNTO SI hay alguien waiting.
+        
+        if (server.getQueue().size() > 0){ 
 
             e = server.getQueue().next();
             server.setEntity(e);
-
             this.collectorWait.collect(this.clock - e.getTimeArrival());
-
-            fel.insert(new EndOfService(this.clock+this.distribution.sample(), e, this.distribution, this.collectorToS, this.collectorWait)); //INSERTO EL EVENTO DE SALIDA DEL ELEMENTO QUE ESTABA WAITING
+            fel.insert(new EndOfService(this.clock+this.distribution.sample(), e, this.distribution, this.collectorToS, this.collectorWait));
 
         }else{
+
             server.free();
+            
         }
         
         this.collectorToS.collect(this.clock - this.entity.getTimeArrival());
