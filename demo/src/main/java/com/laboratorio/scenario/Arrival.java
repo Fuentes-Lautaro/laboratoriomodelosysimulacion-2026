@@ -15,8 +15,9 @@ public class Arrival implements Event {
     private final CollectorTimeOnSystem collectorToS;
     private final CollectorTimeWait collectorWait;
     private final CollectorSizeQueue collectorSQ;
+    private final CollectorTimeLeisure collectorTL;
 
-    public Arrival(Double clock, Entity entity, Distribution arrivalDistribution, Distribution EoSDistribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, CollectorSizeQueue collectorSQ) {
+    public Arrival(Double clock, Entity entity, Distribution arrivalDistribution, Distribution EoSDistribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, CollectorSizeQueue collectorSQ, CollectorTimeLeisure collectorTL) {
         this.clock = clock;
         this.order = 10;
         this.entity = entity;
@@ -25,6 +26,7 @@ public class Arrival implements Event {
         this.collectorToS = collectorToS;
         this.collectorWait = collectorWait;
         this.collectorSQ = collectorSQ;
+        this.collectorTL = collectorTL;
     }
 
     @Override
@@ -55,14 +57,12 @@ public class Arrival implements Event {
             server.getQueue().enqueue(this.entity);
             collectorSQ.collect(server.getQueue().size());
         }else{
+            
             server.setEntity(this.entity);
             collectorSQ.collect(server.getQueue().size());
-            fel.insert(new EndOfService(this.clock + this.EoSDistribution.sample(), this.entity, this.EoSDistribution, this.collectorToS, this.collectorWait)); //INSERTO EL EVENTO SALIDA DEL ELEMENTO ACTUAL
+            fel.insert(new EndOfService(this.clock + this.EoSDistribution.sample(), this.entity, this.EoSDistribution, this.collectorToS, this.collectorWait));
         }
 
-        fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.collectorToS, this.collectorWait, this.collectorSQ)); //INSERTO EL NUEVO EVENTO DE ARRIBO
-
-        //COLECCIONO ESTADISTICAS
-        //TERMINA EL PLANIFICATE
+        fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL));
     }
 }

@@ -23,6 +23,7 @@ public class AirportSim implements Engine {
     private CollectorTimeOnSystem collectorToS;
     private CollectorTimeWait collectorWait;
     private CollectorSizeQueue collectorSQ;
+    private CollectorTimeLeisure collectorTL;
 
     public AirportSim(double simLenght){
         this.simLenght = simLenght;
@@ -30,7 +31,8 @@ public class AirportSim implements Engine {
         this.collectorToS = new CollectorTimeOnSystem();
         this.collectorWait = new CollectorTimeWait();
         this.collectorSQ = new CollectorSizeQueue();
-        this.fel.insert(new Arrival(0d, new Entity(), new Table1(), new Table2(), this.collectorToS, this.collectorWait, this.collectorSQ)) ;
+        this.collectorTL = new CollectorTimeLeisure();
+        this.fel.insert(new Arrival(0d, new Entity(), new Table1(), new Table2(), this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL)) ;
         this.server = new Airstrip(1, new MyQueue());
     }
     

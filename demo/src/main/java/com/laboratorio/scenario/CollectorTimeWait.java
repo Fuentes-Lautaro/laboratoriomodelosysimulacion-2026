@@ -10,8 +10,8 @@ public class CollectorTimeWait implements Collector{
     public CollectorTimeWait() {
         this.totalTimeWait = 0;
         this.totalEntities = 0;
-        this.maxTimeWait = 0;
-        this.minTimeWait = 0;
+        this.maxTimeWait = Double.MIN_VALUE;
+        this.minTimeWait = Double.MAX_VALUE;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class CollectorTimeWait implements Collector{
         if (timeWait > this.maxTimeWait) {
             this.maxTimeWait = timeWait;
         }
-        if (timeWait < this.minTimeWait || this.minTimeWait == 0) {
+        if (timeWait < this.minTimeWait) {
             this.minTimeWait = timeWait;
         }
     }
