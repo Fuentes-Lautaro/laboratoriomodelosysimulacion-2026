@@ -10,11 +10,11 @@ public class Arrival implements Event {
     private final double clock;
     private final int order;
     private final Entity entity;
-    private Distribution arrivalDistribution;
-    private Distribution EoSDistribution;
-    private CollectorTimeOnSystem collectorToS;
-    private CollectorTimeWait collectorWait;
-    private CollectorSizeQueue collectorSQ;
+    private final Distribution arrivalDistribution;
+    private final Distribution EoSDistribution;
+    private final CollectorTimeOnSystem collectorToS;
+    private final CollectorTimeWait collectorWait;
+    private final CollectorSizeQueue collectorSQ;
 
     public Arrival(Double clock, Entity entity, Distribution arrivalDistribution, Distribution EoSDistribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, CollectorSizeQueue collectorSQ) {
         this.clock = clock;

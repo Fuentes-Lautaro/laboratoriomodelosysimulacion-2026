@@ -11,8 +11,8 @@ public class EndOfService implements Event {
     private final int order;
     private final Entity entity;
     private final Distribution distribution;
-    private CollectorTimeOnSystem collectorToS;
-    private CollectorTimeWait collectorWait;
+    private final CollectorTimeOnSystem collectorToS;
+    private final CollectorTimeWait collectorWait;
 
     public EndOfService(Double clock, Entity e, Distribution distribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait) {
         this.clock = clock;

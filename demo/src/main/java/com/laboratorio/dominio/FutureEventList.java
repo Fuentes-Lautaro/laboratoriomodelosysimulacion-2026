@@ -9,6 +9,7 @@ public class FutureEventList {
     private List<Event> fel;
     private final Comparator<Event> comparator; 
 
+    @SuppressWarnings("Convert2Lambda")
     public FutureEventList(){
         this.fel = new ArrayList<>();
         this.comparator = new Comparator<Event>(){
