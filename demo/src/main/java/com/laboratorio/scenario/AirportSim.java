@@ -5,11 +5,13 @@
 
 package com.laboratorio.scenario;
 
+import java.util.List;
+
 import com.laboratorio.collectors.CollectorSizeQueue;
 import com.laboratorio.collectors.CollectorTimeLeisure;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
-import com.laboratorio.distribution.Table1;
+import com.laboratorio.distribution.EmpiricaDiscreta;
 import com.laboratorio.distribution.Table2;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
@@ -25,21 +27,25 @@ public class AirportSim implements Engine {
 
     private final double simLenght;
     private FutureEventList fel;
-    private Server server;
+    private List<Server> servers    ;
     private CollectorTimeOnSystem collectorToS;
     private CollectorTimeWait collectorWait;
     private CollectorSizeQueue collectorSQ;
     private CollectorTimeLeisure collectorTL;
 
-    public AirportSim(double simLenght){
+    private final ServerSelectionPolicy policy;
+
+    public AirportSim(double simLenght, List<Server> servers, ServerSelectionPolicy policy) {
         this.simLenght = simLenght;
         this.fel = new FutureEventList();
         this.collectorToS = new CollectorTimeOnSystem();
         this.collectorWait = new CollectorTimeWait();
         this.collectorSQ = new CollectorSizeQueue();
         this.collectorTL = new CollectorTimeLeisure();
-        this.fel.insert(new Arrival(0d, new Entity(), new Table1(), new Table2(), this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL)) ;
-        this.server = new Airstrip(1, new MyQueue());
+        this.servers = servers;
+        this.fel.insert(new Arrival(0d, new Entity(), new EmpiricaDiscreta(), new Table2(), this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL)) ;
+
+        this.policy = policy;
     }
     
     @Override
@@ -53,7 +59,9 @@ public class AirportSim implements Engine {
 
         while (clock < this.simLenght) { 
 
-            e.planificate(this.fel, this.server);
+            Server selectedServer = this.policy.selectServer(this.servers);
+
+            e.planificate(this.fel, selectedServer);
 
             System.out.println(this.fel);
 

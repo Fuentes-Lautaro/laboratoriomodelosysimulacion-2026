@@ -12,7 +12,7 @@ import com.laboratorio.dominio.Randomizer;
  *
  * @author eldem
  */
-public class Table1 implements Distribution {
+public class EmpiricaDiscreta implements Distribution {
 
     @Override
     public double sample() {
