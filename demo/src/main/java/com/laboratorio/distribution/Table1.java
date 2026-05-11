@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.laboratorio.scenario;
+package com.laboratorio.distribution;
 
 import com.laboratorio.dominio.Distribution;
 import com.laboratorio.dominio.Randomizer;

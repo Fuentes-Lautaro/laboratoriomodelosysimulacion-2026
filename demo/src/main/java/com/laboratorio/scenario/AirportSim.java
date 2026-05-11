@@ -5,6 +5,8 @@
 
 package com.laboratorio.scenario;
 
+import com.laboratorio.distribution.Table1;
+import com.laboratorio.distribution.Table2;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
