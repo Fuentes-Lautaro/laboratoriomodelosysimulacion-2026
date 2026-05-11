@@ -57,6 +57,7 @@ public class AirportSim implements Engine {
         this.collectorToS.printReport();
         this.collectorWait.printReport();
         this.collectorSQ.printReport();
+        this.collectorTL.printReport();
     }
 
 }

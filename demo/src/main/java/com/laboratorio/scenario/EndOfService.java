@@ -51,13 +51,18 @@ public class EndOfService implements Event {
         if (server.getQueue().size() > 0){ 
 
             e = server.getQueue().next();
+
             server.setEntity(e);
+
             this.collectorWait.collect(this.clock - e.getTimeArrival());
+            
             fel.insert(new EndOfService(this.clock+this.distribution.sample(), e, this.distribution, this.collectorToS, this.collectorWait));
 
         }else{
 
             server.free();
+
+            server.setLeisureTime(this.clock);
             
         }
         

@@ -8,10 +8,12 @@ public class Airstrip implements Server {
     private long id;
     private Entity entity;
     private Queue queue;
+    private double leisureTime;
 
     public Airstrip(int id, Queue queue) {
         this.id = id;
         this.queue = queue;
+        this.leisureTime = 0.0;
     }
 
     @Override
@@ -32,6 +34,14 @@ public class Airstrip implements Server {
     @Override
     public void setQueue(Queue q) {
         this.queue = q;
+    }
+
+    public double getLeisureTime() {
+        return this.leisureTime;
+    }
+
+    public void setLeisureTime(double leisureTime) {
+        this.leisureTime = leisureTime;
     }
 
     @Override

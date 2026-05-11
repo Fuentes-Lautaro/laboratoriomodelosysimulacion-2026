@@ -57,11 +57,15 @@ public class Arrival implements Event {
         if (server.isBusy()){
 
             server.getQueue().enqueue(this.entity);
+
             collectorSQ.collect(server.getQueue().size());
 
         }else{
             
+            collectorTL.collect(this.clock - server.getLeisureTime());
+
             server.setEntity(this.entity);
+
             fel.insert(new EndOfService(this.clock + this.EoSDistribution.sample(), this.entity, this.EoSDistribution, this.collectorToS, this.collectorWait));
 
         }

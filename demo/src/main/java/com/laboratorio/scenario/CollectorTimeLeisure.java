@@ -15,7 +15,7 @@ public class CollectorTimeLeisure implements Collector{
     @Override
     public void collect(double timeLeisure) {
         this.totalTimeLeisure += timeLeisure;
-        if (timeLeisure < this.minTimeLeisure) {
+        if (timeLeisure > 0 && timeLeisure < this.minTimeLeisure) {
             this.minTimeLeisure = timeLeisure;
         }
         if (timeLeisure > this.maxTimeLeisure) {
