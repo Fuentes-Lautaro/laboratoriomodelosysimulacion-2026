@@ -18,7 +18,7 @@ public class Normal implements Distribution{
         for (int i = 0; i < 48; i++)
             z += Randomizer.nroRandom();
 
-        z = .5 * (z - 24); // Normalizar a media 0 y desviación estándar 1
+        z = .5 * (z - 24);
 
         return z * stdDev + mean;
     }

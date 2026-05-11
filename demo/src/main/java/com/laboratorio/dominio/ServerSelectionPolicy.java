@@ -1,8 +1,6 @@
-package com.laboratorio.scenario;
+package com.laboratorio.dominio;
 
 import java.util.List;
-
-import com.laboratorio.dominio.Server;
 
 @FunctionalInterface
 public interface ServerSelectionPolicy {

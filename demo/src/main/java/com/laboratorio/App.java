@@ -14,11 +14,14 @@ public class App
     {
 
         
+        List listServers = new java.util.ArrayList<Airstrip>();
+        for (int i = 1; i <= 5; i++)
+            listServers.add(new Airstrip(i, new MyQueue()));
+        
         Engine e = new AirportSim(
             40320d,
-            List.of(new Airstrip(1, new MyQueue())),
-            ss -> ss.get(0)
-        );
+                listServers,
+                ss -> );
         
         e.run();
         

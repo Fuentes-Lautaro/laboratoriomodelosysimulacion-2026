@@ -18,6 +18,7 @@ import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
 import com.laboratorio.dominio.FutureEventList;
 import com.laboratorio.dominio.Server;
+import com.laboratorio.dominio.ServerSelectionPolicy;
 
 /**
  *
