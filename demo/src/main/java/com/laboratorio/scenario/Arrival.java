@@ -1,5 +1,9 @@
 package com.laboratorio.scenario;
 
+import com.laboratorio.collectors.CollectorSizeQueue;  
+import com.laboratorio.collectors.CollectorTimeLeisure;
+import com.laboratorio.collectors.CollectorTimeOnSystem;
+import com.laboratorio.collectors.CollectorTimeWait;
 import com.laboratorio.dominio.Distribution;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;

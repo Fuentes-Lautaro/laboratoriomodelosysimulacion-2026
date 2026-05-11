@@ -1,4 +1,4 @@
-package com.laboratorio.scenario;
+package com.laboratorio.collectors;
 import com.laboratorio.dominio.Collector;
 
 public class CollectorSizeQueue implements Collector{
