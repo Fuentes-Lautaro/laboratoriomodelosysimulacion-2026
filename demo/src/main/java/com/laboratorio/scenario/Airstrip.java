@@ -5,7 +5,7 @@ import com.laboratorio.dominio.Queue;
 import com.laboratorio.dominio.Server;
 
 public class Airstrip implements Server {
-    private long id;
+    private final long id;
     private Entity entity;
     private Queue queue;
     private double leisureTime;
@@ -36,10 +36,12 @@ public class Airstrip implements Server {
         this.queue = q;
     }
 
+    @Override
     public double getLeisureTime() {
         return this.leisureTime;
     }
 
+    @Override
     public void setLeisureTime(double leisureTime) {
         this.leisureTime = leisureTime;
     }

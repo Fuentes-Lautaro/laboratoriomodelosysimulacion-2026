@@ -47,7 +47,7 @@ public class CollectorTimeLeisure implements Collector{
             return;
         }
         System.out.println("Tiempo total de ocio: " + this.totalTimeLeisure);
-        System.out.println("Tiempo total en proporcion del tiempo de simulacion: " + (this.totalTimeLeisure / 40320.0) * 100 + "%");
+        System.out.printf("Tiempo total en proporcion del tiempo de simulacion: %.2f%%\n", (this.totalTimeLeisure / 40320.0) * 100);
         System.out.println("Tiempo mínimo de ocio: " + this.minTimeLeisure);
         System.out.println("Tiempo máximo de ocio: " + this.maxTimeLeisure);
         System.out.println("");
