@@ -1,8 +1,8 @@
 package com.laboratorio.dominio;
+import java.util.Random;
 
 public class Randomizer {
-    
     public static double nroRandom() {
-        return Math.random(); 
+        return new Random().nextDouble();
     }
-}
+} 
