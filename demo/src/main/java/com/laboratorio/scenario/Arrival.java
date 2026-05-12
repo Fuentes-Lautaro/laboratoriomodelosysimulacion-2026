@@ -62,11 +62,11 @@ public class Arrival implements Event {
 
             server.getQueue().enqueue(this.entity);
 
-            collectorSQ.collect(server.getQueue().size());
+            this.collectorSQ.collect(server.getQueue().size());
 
         }else{
             
-            collectorTL.collect(this.clock - server.getLeisureTime());
+            this.collectorTL.collect(this.clock - server.getLeisureTime());
 
             server.setEntity(this.entity);
 
@@ -75,5 +75,6 @@ public class Arrival implements Event {
         }
 
         fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL));
+        
     }
 }
