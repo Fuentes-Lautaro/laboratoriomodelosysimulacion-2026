@@ -12,7 +12,7 @@ import com.laboratorio.collectors.CollectorTimeLeisure;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
 import com.laboratorio.distribution.EmpiricaDiscreta;
-import com.laboratorio.distribution.TableTest;
+import com.laboratorio.distribution.Table2;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
@@ -28,7 +28,7 @@ public class AirportSim implements Engine {
 
     private final double simLenght;
     private FutureEventList fel;
-    private List<Server> servers    ;
+    private List<Server> servers;
     private CollectorTimeOnSystem collectorToS;
     private CollectorTimeWait collectorWait;
     private CollectorSizeQueue collectorSQ;
@@ -44,7 +44,7 @@ public class AirportSim implements Engine {
         this.collectorSQ = new CollectorSizeQueue();
         this.collectorTL = new CollectorTimeLeisure();
         this.servers = servers;
-        this.fel.insert(new Arrival(0d, new Entity(), new EmpiricaDiscreta(), new TableTest(), this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL)) ;
+        this.fel.insert(new Arrival(0d, new Entity(), new EmpiricaDiscreta(), new Table2(), this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL)) ;
         this.policy = policy;
     }
     
