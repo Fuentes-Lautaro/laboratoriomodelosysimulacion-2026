@@ -30,13 +30,12 @@ public class CollectorTimeWait implements Collector{
     public void printReport() {
         System.out.println(" ---   REPORTE DE TIEMPO DE ESPERA --- ");
         System.out.println("Total de entidades que esperaron: " + this.totalEntities);
-        System.out.println("Tiempo máximo de espera: " + this.maxTimeWait);
-        System.out.println("Tiempo mínimo de espera: " + this.minTimeWait);
-        if (this.totalEntities > 0) {
+        if (this.totalEntities != 0) {
+            System.out.println("Tiempo máximo de espera: " + this.maxTimeWait);
+            System.out.println("Tiempo mínimo de espera: " + this.minTimeWait);
             System.out.println("Tiempo promedio de espera: " + (this.totalTimeWait / this.totalEntities));
-        } else {
-            System.err.println("Ninguna entidad ha esperado, no se puede calcular el tiempo promedio de espera.");
         }
+        
         System.out.println("");
     }
 }

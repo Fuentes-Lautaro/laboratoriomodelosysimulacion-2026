@@ -1,5 +1,6 @@
 package com.laboratorio.scenario;
 
+import java.util.List;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
 import com.laboratorio.dominio.Distribution;
@@ -37,7 +38,7 @@ public class EndOfService implements Event {
 
      @Override
     public Entity getEntity() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.entity;
     }
 
     @Override
@@ -46,15 +47,16 @@ public class EndOfService implements Event {
     }
    
     @Override
-    public void planificate(FutureEventList fel, Server server){
+    public void planificate(FutureEventList fel, List<Server> servers){
 
         Entity e = null;
+        Server s = this.entity.getServer();
         
-        if (server.getQueue().size() > 0){ 
+        if (s.getQueue().size() > 0){ 
 
-            e = server.getQueue().next();
+            e = s.getQueue().next();
 
-            server.setEntity(e);
+            s.setEntity(e);
 
             this.collectorWait.collect(this.clock - e.getTimeArrival());
             
@@ -62,10 +64,10 @@ public class EndOfService implements Event {
 
         }else{
 
-            server.free();
+            s.free();
 
-            server.setLeisureTime(this.clock);
-            
+            s.setLeisureTime(this.clock);
+
         }
         
         this.collectorToS.collect(this.clock - this.entity.getTimeArrival());

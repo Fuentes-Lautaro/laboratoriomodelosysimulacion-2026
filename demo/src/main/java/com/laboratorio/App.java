@@ -18,11 +18,10 @@ public class App
         List listServers = new java.util.ArrayList<Airstrip>();
         for (int i = 1; i <= 5; i++){
             listServers.add(new Airstrip(i, new MyQueue()));
-            System.out.println("Server " + i + " created");
         }
 
         Engine e = new AirportSim(
-            40320d,
+            100d,
                 listServers,
                 new SelectionPolicy()
                 );

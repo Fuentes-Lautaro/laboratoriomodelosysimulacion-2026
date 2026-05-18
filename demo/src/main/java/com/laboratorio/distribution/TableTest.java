@@ -8,8 +8,8 @@ public class TableTest implements Distribution {
     @Override
     public double sample() {
         double r = Randomizer.nroRandom();
-        if (r < 0.35) return 100d;
-        if (r < 0.8) return 150d;
-        return 200d;
+        if (r < 0.35) return 40d;
+        if (r < 0.8) return 50d;
+        return 60d;
     }
 }

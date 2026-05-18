@@ -5,6 +5,7 @@ public class Entity {
     private static int contador = 0;
     private final int id;
     private double timeArrival;
+    private Server server;
 
     public Entity(){
         contador++;
@@ -21,5 +22,13 @@ public class Entity {
 
     public int getId() {
         return id;
+    }
+
+    public Server getServer() {
+        return server;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
     }
 }
