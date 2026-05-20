@@ -9,6 +9,7 @@ public class Airstrip implements Server {
     private Entity entity;
     private Queue queue;
     private double leisureTime;
+    private double durability = 3000;
 
     public Airstrip(int id, Queue queue) {
         this.id = id;
@@ -59,5 +60,13 @@ public class Airstrip implements Server {
     @Override
     public void free() {
         this.entity = null;
+    }
+    @Override
+    public void setDurability(double wear) {
+        this.durability -= wear;
+    }
+    @Override
+    public double getDurability() {
+        return this.durability;
     }
 }
