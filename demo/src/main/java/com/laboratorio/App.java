@@ -21,7 +21,7 @@ public class App
         }
 
         Engine e = new AirportSim(
-            100d,
+            40320d,
                 listServers,
                 new SelectionPolicy()
                 );

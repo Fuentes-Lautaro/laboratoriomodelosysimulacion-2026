@@ -2,7 +2,7 @@ package com.laboratorio.distribution;
 
 import com.laboratorio.dominio.Distribution;
 
-public class uniforme implements Distribution {
+public class Uniforme implements Distribution {
 
     @Override
     public double sample() {

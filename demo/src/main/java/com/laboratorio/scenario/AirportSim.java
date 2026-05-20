@@ -13,6 +13,7 @@ import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
 import com.laboratorio.distribution.EmpiricaDiscreta;
 import com.laboratorio.distribution.Normal;
+import com.laboratorio.distribution.Uniforme;
 import com.laboratorio.distribution.TableTest;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
@@ -46,9 +47,9 @@ public class AirportSim implements Engine {
         this.collectorTL = new CollectorTimeLeisure();
         this.servers = servers;
         this.policy = policy;
-        this.fel.insert(new Arrival(0d, new Entity(), new EmpiricaDiscreta(), new TableTest(), new Normal(5, 1), this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.policy)) ;
+        this.fel.insert(new Arrival(0d, new Entity(), new EmpiricaDiscreta(), new Uniforme(), new Normal(5, 1), this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.policy)) ;
     }
-    
+
     @Override
     public void run() {
 
@@ -74,6 +75,9 @@ public class AirportSim implements Engine {
         this.collectorWait.printReport();
         this.collectorSQ.printReport();
         this.collectorTL.printReport();
+        
+        for (Server s : this.servers)
+            System.out.println("Durabilidad del server " + s.getId() + " es: " + s.getDurability());
     }
 
 }
