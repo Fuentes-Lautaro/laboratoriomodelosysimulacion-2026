@@ -20,7 +20,7 @@ public class Arrival implements Event {
     private final Entity entity;
     private final Distribution arrivalDistribution;
     private final Distribution EoSDistribution;
-    private final Distribution DurabilityDistribution;
+    private final Distribution durabilityDistribution;
     private final CollectorTimeOnSystem collectorToS;
     private final CollectorTimeWait collectorWait;
     private final CollectorSizeQueue collectorSQ;
@@ -89,7 +89,7 @@ public class Arrival implements Event {
 
         server.setDurability(this.durabilityDistribution.sample());
 
-        fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.selectionPolicy));
+        fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.durabilityDistribution, this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.selectionPolicy));
         
     }
 }
