@@ -5,10 +5,17 @@
 
 package com.laboratorio.scenario;
 
+import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
+
+import com.laboratorio.behaviors.SingleBehavior;
+import com.laboratorio.behaviors.RushHour;
 import com.laboratorio.collectors.CollectorSizeQueue;
 import com.laboratorio.collectors.CollectorTimeLeisure;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
+import com.laboratorio.distribution.Exponencial;
+import com.laboratorio.distribution.Exponential2;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
@@ -29,17 +36,40 @@ public class AirportSim implements Engine {
     private CollectorSizeQueue collectorSQ;
     private CollectorTimeLeisure collectorTL;
 
-    public AirportSim(double simLenght){
+    public AirportSim(double simLenght) {
         this.simLenght = simLenght;
+
         this.fel = new FutureEventList();
+        
         this.collectorToS = new CollectorTimeOnSystem();
         this.collectorWait = new CollectorTimeWait();
         this.collectorSQ = new CollectorSizeQueue();
         this.collectorTL = new CollectorTimeLeisure();
-        this.fel.insert(new Arrival(0d, new Entity(), new Table1(), new Table2(), this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL)) ;
+
+        this.fel.insert(
+                new Arrival(0d,
+                        new Entity(),
+                        new ArrayList<>() {
+                            {
+                                add(new Exponencial(9));
+                                add(new Exponencial(15));
+                            }
+                        },
+                        new ArrayList<>() {
+                            {
+                                add(new Exponencial(15));
+                            }
+                        },
+                        this.collectorToS, 
+                        this.collectorWait, 
+                        this.collectorSQ, 
+                        this.collectorTL, 
+                        new RushHour(),
+                        new SingleBehavior(0)));
+
         this.server = new Airstrip(1, new MyQueue());
     }
-    
+
     @Override
     public void run() {
 
@@ -49,7 +79,7 @@ public class AirportSim implements Engine {
 
         double clock = e.getClock();
 
-        while (clock < this.simLenght) { 
+        while (clock < this.simLenght) {
 
             e.planificate(this.fel, this.server);
 

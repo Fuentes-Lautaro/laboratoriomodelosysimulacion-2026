@@ -1,9 +1,13 @@
 package com.laboratorio.scenario;
 
-import com.laboratorio.collectors.CollectorSizeQueue;  
+import java.beans.beancontext.BeanContext;
+import java.util.List;
+
+import com.laboratorio.collectors.CollectorSizeQueue;
 import com.laboratorio.collectors.CollectorTimeLeisure;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
+import com.laboratorio.dominio.Behavior;
 import com.laboratorio.dominio.Distribution;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
@@ -14,27 +18,35 @@ public class Arrival implements Event {
     private final double clock;
     private final int order;
     private final Entity entity;
-    private final Distribution arrivalDistribution;
-    private final Distribution EoSDistribution;
+    private final List<Distribution> arrivalDistributions;
+    private final List<Distribution> eoSDistributions;
     private final CollectorTimeOnSystem collectorToS;
     private final CollectorTimeWait collectorWait;
     private final CollectorSizeQueue collectorSQ;
     private final CollectorTimeLeisure collectorTL;
 
-    public Arrival(Double clock, Entity entity, Distribution arrivalDistribution, Distribution EoSDistribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, CollectorSizeQueue collectorSQ, CollectorTimeLeisure collectorTL) {
+    private final Behavior behavior;
+    private Behavior eoSBehavior;
+
+    public Arrival(Double clock,
+            Entity entity, List<Distribution> arrivalDistributions, List<Distribution> eoSDistributions,
+            CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, CollectorSizeQueue collectorSQ,
+            CollectorTimeLeisure collectorTL, Behavior arrivalBehavior, Behavior eoSBehavior) {
         this.clock = clock;
         this.order = 10;
         this.entity = entity;
-        this.arrivalDistribution = arrivalDistribution;
-        this.EoSDistribution = EoSDistribution;
+        this.arrivalDistributions = arrivalDistributions;
+        this.eoSDistributions = eoSDistributions;
         this.collectorToS = collectorToS;
         this.collectorWait = collectorWait;
         this.collectorSQ = collectorSQ;
         this.collectorTL = collectorTL;
+        this.behavior = arrivalBehavior;
+        this.eoSBehavior = eoSBehavior;
     }
 
     @Override
-    public double getClock(){
+    public double getClock() {
         return clock;
     }
 
@@ -49,31 +61,35 @@ public class Arrival implements Event {
     }
 
     @Override
-    public Distribution getDistribution() {
-        return this.arrivalDistribution;
+    public List<Distribution> getDistributions() {
+        return this.arrivalDistributions;
     }
 
     @Override
-    public void planificate(FutureEventList fel, Server server){
+    public void planificate(FutureEventList fel, Server server) {
         this.entity.setTimeArrival(this.clock);
         this.collectorToS.collectArrival();
 
-        if (server.isBusy()){
+        if (server.isBusy()) {
 
             server.getQueue().enqueue(this.entity);
 
             collectorSQ.collect(server.getQueue().size());
 
-        }else{
-            
+        } else {
+
             collectorTL.collect(this.clock - server.getLeisureTime());
 
             server.setEntity(this.entity);
 
-            fel.insert(new EndOfService(this.clock + this.EoSDistribution.sample(), this.entity, this.EoSDistribution, this.collectorToS, this.collectorWait));
+            double deltaTime = this.eoSBehavior.behavior(this.eoSDistributions, this.clock);
+            fel.insert(new EndOfService(this.clock + deltaTime, this.entity, this.eoSDistributions, this.collectorToS,
+                    this.collectorWait, this.eoSBehavior));
 
         }
-
-        fel.insert(new Arrival(this.clock + this.arrivalDistribution.sample(), new Entity(), this.arrivalDistribution, this.EoSDistribution, this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL));
+        double deltaTime = this.behavior.behavior(this.arrivalDistributions, this.clock);
+        fel.insert(new Arrival(this.clock + deltaTime, new Entity(), this.arrivalDistributions, this.eoSDistributions,
+                this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.behavior,
+                this.eoSBehavior));
     }
 }
