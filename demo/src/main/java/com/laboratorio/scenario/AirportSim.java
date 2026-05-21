@@ -6,16 +6,14 @@
 package com.laboratorio.scenario;
 
 import java.util.ArrayList;
-import java.util.concurrent.ArrayBlockingQueue;
 
-import com.laboratorio.behaviors.SingleBehavior;
 import com.laboratorio.behaviors.RushHour;
+import com.laboratorio.behaviors.SingleBehavior;
 import com.laboratorio.collectors.CollectorSizeQueue;
 import com.laboratorio.collectors.CollectorTimeLeisure;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
 import com.laboratorio.distribution.Exponencial;
-import com.laboratorio.distribution.Exponential2;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
@@ -88,6 +86,7 @@ public class AirportSim implements Engine {
             e = this.fel.imminent();
             clock = e.getClock();
         }
+        
         this.collectorToS.printReport();
         this.collectorWait.printReport();
         this.collectorSQ.printReport();
