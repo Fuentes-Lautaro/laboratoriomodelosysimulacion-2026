@@ -28,14 +28,28 @@ public class CollectorTimeWait implements Collector{
 
     @Override
     public void printReport() {
-        System.out.println(" ---   REPORTE DE TIEMPO DE ESPERA --- ");
-        System.out.println("Total de entidades que esperaron: " + this.totalEntities + " entidades.");
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00");
+
+        System.out.println("\n┌──────────────────────────────────────────────────────────────┐");
+        System.out.println("│                REPORTE DE TIEMPO DE ESPERA                   │");
+        System.out.println("├──────────────────────────────────────────────────────────────┤");
+        System.out.printf("│ %-48s : %10d │\n", "Total de entidades que esperaron", this.totalEntities);
+        System.out.println("├──────────────────────────────────────────────────────────────┤");
+        System.out.println("│               ESTADISTICAS DE TIEMPO DE ESPERA               │");
+        System.out.println("├──────────────────────────────────────────────────────────────┤");
+
         if (this.totalEntities != 0) {
-            System.out.println("Tiempo máximo de espera: " + this.maxTimeWait + " minutos.");
-            System.out.println("Tiempo mínimo de espera: " + this.minTimeWait + " minutos");
-            System.out.println("Tiempo medio de espera: " + (this.totalTimeWait / this.totalEntities) + " minutos.");
-        }
+            double tiempoMedioWait = (double) this.totalTimeWait / this.totalEntities;
         
-        System.out.println("");
+            System.out.printf("│ %-48s : %6s min │\n", "Tiempo maximo de espera", df.format(this.maxTimeWait));
+            System.out.printf("│ %-48s : %6s min │\n", "Tiempo minimo de espera", df.format(this.minTimeWait));
+            System.out.printf("│ %-48s : %6s min │\n", "Tiempo medio de espera", df.format(tiempoMedioWait));
+        } else {
+            System.out.printf("│ %-48s : %10s │\n", "Tiempo maximo de espera", "N/A");
+            System.out.printf("│ %-48s : %10s │\n", "Tiempo minimo de espera", "N/A");
+            System.out.printf("│ %-48s : %10s │\n", "Tiempo medio de espera", "N/A");
+        }
+
+        System.out.println("└──────────────────────────────────────────────────────────────┘\n");
     }
 }

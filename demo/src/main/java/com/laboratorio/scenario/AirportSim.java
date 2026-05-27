@@ -100,7 +100,16 @@ public class AirportSim implements Engine {
         this.collectorSQ.printReport();
         this.collectorTL.printReport();
 
-        for (Server s : this.servers)
-            System.out.println("Durabilidad de la pista " + s.getId() + " es: " + s.getDurability() + " unidades de durabilidad.");
+        System.out.println("\n┌──────────────────────────────────────────────────────────────┐");
+        System.out.println("│               DURABILIDAD FINAL DE LAS PISTAS                │");
+        System.out.println("├──────────────────────────────────────────────────────────────┤");
+
+        for (Server s : this.servers) {
+            String etiquetaPista = "Durabilidad de la pista " + s.getId();
+
+        System.out.printf("│ %-48s : %10.2f │\n", etiquetaPista, s.getDurability());
+        }
+
+        System.out.println("└──────────────────────────────────────────────────────────────┘\n");
     }
 }
