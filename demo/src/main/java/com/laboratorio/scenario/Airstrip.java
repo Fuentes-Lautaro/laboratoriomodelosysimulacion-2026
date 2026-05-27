@@ -5,7 +5,7 @@ import com.laboratorio.dominio.Queue;
 import com.laboratorio.dominio.Server;
 
 public class Airstrip implements Server {
-    private final long id;
+    private long id;
     private Entity entity;
     private Queue queue;
     private double leisureTime;
@@ -33,16 +33,24 @@ public class Airstrip implements Server {
     }
 
     @Override
+    public void setDurability(double wearStrip){
+        this.durability -= wearStrip;
+    }
+
+    @Override
+    public double getDurability(){
+        return this.durability;
+    }
+    
+    @Override
     public void setQueue(Queue q) {
         this.queue = q;
     }
 
-    @Override
     public double getLeisureTime() {
         return this.leisureTime;
     }
 
-    @Override
     public void setLeisureTime(double leisureTime) {
         this.leisureTime = leisureTime;
     }
@@ -60,13 +68,5 @@ public class Airstrip implements Server {
     @Override
     public void free() {
         this.entity = null;
-    }
-    @Override
-    public void setDurability(double wear) {
-        this.durability -= wear;
-    }
-    @Override
-    public double getDurability() {
-        return this.durability;
     }
 }

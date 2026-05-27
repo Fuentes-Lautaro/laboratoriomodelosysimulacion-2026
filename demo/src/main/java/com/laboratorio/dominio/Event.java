@@ -1,4 +1,5 @@
 package com.laboratorio.dominio;
+
 import java.util.List;
 
 public interface Event {
@@ -11,5 +12,5 @@ public interface Event {
 
     Entity getEntity();
 
-    Distribution getDistribution();
+    List<Distribution> getDistributions();
 }

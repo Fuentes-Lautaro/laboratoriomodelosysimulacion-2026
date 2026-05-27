@@ -1,8 +1,10 @@
 package com.laboratorio.scenario;
 
 import java.util.List;
+
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
+import com.laboratorio.dominio.Behavior;
 import com.laboratorio.dominio.Distribution;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
@@ -13,17 +15,22 @@ public class EndOfService implements Event {
     private final double clock;
     private final int order;
     private final Entity entity;
-    private final Distribution distribution;
+    private final List<Distribution> distributions;
     private final CollectorTimeOnSystem collectorToS;
     private final CollectorTimeWait collectorWait;
+    private final Behavior behavior;
 
-    public EndOfService(Double clock, Entity e, Distribution distribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait) {
+    public EndOfService(Double clock, Entity e, List<Distribution> distributions, 
+                        CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, 
+                        Behavior behavior) 
+                        {
         this.clock = clock;
         this.order = 0;
         this.entity = e;
-        this.distribution = distribution;
+        this.distributions = distributions;
         this.collectorToS = collectorToS;
         this.collectorWait = collectorWait;
+        this.behavior = behavior;
     }
 
     @Override
@@ -38,11 +45,11 @@ public class EndOfService implements Event {
 
      @Override
     public Entity getEntity() {
-        return this.entity;
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Distribution getDistribution() {
+    public List<Distribution> getDistributions() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
    
@@ -50,24 +57,25 @@ public class EndOfService implements Event {
     public void planificate(FutureEventList fel, List<Server> servers){
 
         Entity e = null;
-        Server s = this.entity.getServer();
+        Server server = this.entity.getServer();
         
-        if (s.getQueue().size() > 0){ 
+        if (server.getQueue().size() > 0){ 
 
-            e = s.getQueue().next();
+            e = server.getQueue().next();
 
-            s.setEntity(e);
+            server.setEntity(e);
 
             this.collectorWait.collect(this.clock - e.getTimeArrival());
-            
-            fel.insert(new EndOfService(this.clock+this.distribution.sample(), e, this.distribution, this.collectorToS, this.collectorWait));
 
+            double deltaTime = this.behavior.behavior(this.distributions, this.clock);
+            fel.insert(new EndOfService(this.clock + deltaTime, e, this.distributions, this.collectorToS, 
+                                        this.collectorWait, this.behavior));
         }else{
 
-            s.free();
+            server.free();
 
-            s.setLeisureTime(this.clock);
-
+            server.setLeisureTime(this.clock);
+            
         }
         
         this.collectorToS.collect(this.clock - this.entity.getTimeArrival());

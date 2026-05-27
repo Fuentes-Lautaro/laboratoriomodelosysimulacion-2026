@@ -13,7 +13,6 @@ public class App
 {
     public static void main( String[] args )
     {
-
         
         List listServers = new java.util.ArrayList<Airstrip>();
         for (int i = 1; i <= 5; i++){
@@ -21,12 +20,12 @@ public class App
         }
 
         Engine e = new AirportSim(
-            40320d,
+                40320d,
                 listServers,
                 new SelectionPolicy()
                 );
-        
+
         e.run();
-        
+
     }
 }

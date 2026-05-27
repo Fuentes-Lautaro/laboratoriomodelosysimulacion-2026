@@ -1,7 +1,8 @@
 package com.laboratorio.scenario;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Queue;
 

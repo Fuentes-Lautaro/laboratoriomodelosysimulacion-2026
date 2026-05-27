@@ -22,4 +22,4 @@ public class Normal implements Distribution{
 
         return z * stdDev + mean;
     }
-}
+} 
