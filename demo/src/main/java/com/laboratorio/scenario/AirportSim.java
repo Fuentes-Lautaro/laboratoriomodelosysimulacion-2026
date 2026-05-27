@@ -97,6 +97,10 @@ public class AirportSim implements Engine {
         this.collectorWait.printReport();
         this.collectorSQ.printReport();
         this.collectorTL.printReport();
+
+        for (Server s : this.servers)
+            System.out.println("Durabilidad del server " + s.getId() + " es: " + s.getDurability());
+        }
     }
 
 }

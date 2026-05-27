@@ -99,5 +99,7 @@ public class Arrival implements Event {
         fel.insert(new Arrival(this.clock + deltaTime, new Entity(), this.arrivalDistributions, this.eoSDistributions,
                 this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.selectionPolicy, 
                 this.behavior, this.eoSBehavior));
+
+        server.setDurability(this.durabilityDistribution.sample());
     }
 }
