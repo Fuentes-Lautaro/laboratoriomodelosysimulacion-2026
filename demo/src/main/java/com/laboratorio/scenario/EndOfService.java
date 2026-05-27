@@ -68,7 +68,8 @@ public class EndOfService implements Event {
             this.collectorWait.collect(this.clock - e.getTimeArrival());
 
             double deltaTime = this.behavior.behavior(this.distributions, this.clock);
-            fel.insert(new EndOfService(this.clock + deltaTime, e, this.distributions, this.collectorToS, this.collectorWait, this.behavior));
+            fel.insert(new EndOfService(this.clock + deltaTime, e, this.distributions, this.collectorToS, 
+                                        this.collectorWait, this.behavior));
         }else{
 
             server.free();

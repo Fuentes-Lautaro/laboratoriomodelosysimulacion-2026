@@ -15,8 +15,8 @@ import com.laboratorio.collectors.CollectorTimeLeisure;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
 import com.laboratorio.distribution.Exponencial;
-import com.laboratorio.distribution.Uniforme;
 import com.laboratorio.distribution.Normal;
+import com.laboratorio.distribution.Uniforme;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
@@ -64,18 +64,13 @@ public class AirportSim implements Engine {
                                 add(new Uniforme(10, 20));
                             }
                         },
-                        new ArrayList<>() {
-                            {
-                                add(new Normal(5, 1));
-                            }
-                        },
+                        new Normal(5, 1),
                         this.collectorToS, 
                         this.collectorWait, 
                         this.collectorSQ, 
                         this.collectorTL, 
                         this.serverSelectionPolicy,
                         new RushHour(),
-                        new SingleBehavior(0),
                         new SingleBehavior(0)));
 
         this.servers = servers;
@@ -107,7 +102,5 @@ public class AirportSim implements Engine {
 
         for (Server s : this.servers)
             System.out.println("Durabilidad del server " + s.getId() + " es: " + s.getDurability());
-        }
     }
-
 }
