@@ -20,7 +20,7 @@ public interface Server {
 
     boolean isBusy();
 
-    void setDurability();
+    void setDurability(double wearStrip);
 
-    double getDurability()
+    double getDurability();
 }
