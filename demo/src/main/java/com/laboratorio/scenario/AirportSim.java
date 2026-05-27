@@ -21,6 +21,7 @@ import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
 import com.laboratorio.dominio.FutureEventList;
 import com.laboratorio.dominio.Server;
+import com.laboratorio.dominio.ServerSelectionPolicy;
 
 /**
  *
@@ -31,12 +32,13 @@ public class AirportSim implements Engine {
     private final double simLenght;
     private FutureEventList fel;
     private List<Server> servers;
+    private ServerSelectionPolicy serverSelectionPolicy;
     private CollectorTimeOnSystem collectorToS;
     private CollectorTimeWait collectorWait;
     private CollectorSizeQueue collectorSQ;
     private CollectorTimeLeisure collectorTL;
 
-    public AirportSim(double simLenght, servers) {
+    public AirportSim(double simLenght, List<Server> servers, ServerSelectionPolicy serverSelectionPolicy) {
         this.simLenght = simLenght;
 
         this.fel = new FutureEventList();
@@ -68,6 +70,7 @@ public class AirportSim implements Engine {
                         new SingleBehavior(0)));
 
         this.servers = servers;
+        this.serverSelectionPolicy = serverSelectionPolicy;
     }
 
     @Override
@@ -81,7 +84,7 @@ public class AirportSim implements Engine {
 
         while (clock < this.simLenght) {
 
-            e.planificate(this.fel, this.server);
+            e.planificate(this.fel, this.servers, this.serverSelectionPolicy;
 
             System.out.println(this.fel);
 
