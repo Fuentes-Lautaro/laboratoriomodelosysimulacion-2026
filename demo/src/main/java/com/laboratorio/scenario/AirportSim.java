@@ -47,6 +47,7 @@ public class AirportSim implements Engine {
         this.collectorWait = new CollectorTimeWait();
         this.collectorSQ = new CollectorSizeQueue();
         this.collectorTL = new CollectorTimeLeisure();
+        this.serverSelectionPolicy = serverSelectionPolicy;
 
         this.fel.insert(
                 new Arrival(0d,
@@ -71,7 +72,6 @@ public class AirportSim implements Engine {
                         new SingleBehavior(0)));
 
         this.servers = servers;
-        this.serverSelectionPolicy = serverSelectionPolicy;
     }
 
     @Override

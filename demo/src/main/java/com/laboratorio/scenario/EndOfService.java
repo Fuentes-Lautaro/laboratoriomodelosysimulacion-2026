@@ -20,7 +20,10 @@ public class EndOfService implements Event {
     private final CollectorTimeWait collectorWait;
     private final Behavior behavior;
 
-    public EndOfService(Double clock, Entity e, List<Distribution> distributions, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, Behavior behavior) {
+    public EndOfService(Double clock, Entity e, List<Distribution> distributions, 
+                        CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, 
+                        Behavior behavior) 
+                        {
         this.clock = clock;
         this.order = 0;
         this.entity = e;

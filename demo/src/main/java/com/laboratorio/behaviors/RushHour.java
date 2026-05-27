@@ -19,9 +19,9 @@ public class RushHour implements Behavior {
         double r =clock % 1440;
 
         if(r >= 9*60 && r <= 13*60 || r >= 20*60 && r <= 23*60){
-            return distributions.get(2).sample();
+            return distributions.get(1).sample();
         }
-        return distributions.get(1).sample();
+        return distributions.get(0).sample();
     }
     
 }
