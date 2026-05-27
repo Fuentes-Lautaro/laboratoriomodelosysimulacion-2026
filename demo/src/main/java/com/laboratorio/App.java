@@ -1,7 +1,11 @@
 package com.laboratorio;
 
+import java.util.List;
+
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.scenario.AirportSim;
+import com.laboratorio.scenario.Airstrip;
+import com.laboratorio.scenario.MyQueue;
 
 
 public class App 
@@ -9,7 +13,16 @@ public class App
     public static void main( String[] args )
     {
         
-        Engine e = new AirportSim(40320d);
+        List listServers = new java.util.ArrayList<Airstrip>();
+        for (int i = 1; i <= 5; i++){
+            listServers.add(new Airstrip(i, new MyQueue()));
+        }
+
+        Engine e = new AirportSim(
+                40320d,
+                listServers,
+                new SelectionPolicy()
+                );
         
         e.run();
         
