@@ -1,6 +1,5 @@
 package com.laboratorio.scenario;
 
-import java.beans.beancontext.BeanContext;
 import java.util.List;
 
 import com.laboratorio.collectors.CollectorSizeQueue;
@@ -21,6 +20,7 @@ public class Arrival implements Event {
     private final Entity entity;
     private final List<Distribution> arrivalDistributions;
     private final List<Distribution> eoSDistributions;
+    private final Distribution durabilityDistribution;
     private final CollectorTimeOnSystem collectorToS;
     private final CollectorTimeWait collectorWait;
     private final CollectorSizeQueue collectorSQ;
@@ -32,14 +32,15 @@ public class Arrival implements Event {
 
     public Arrival(Double clock,
             Entity entity, List<Distribution> arrivalDistributions, List<Distribution> eoSDistributions,
-            CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, CollectorSizeQueue collectorSQ,
-            CollectorTimeLeisure collectorTL, ServerSelectionPolicy selectionPolicy, 
+            Distribution durabilityDistribution, CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait,
+            CollectorSizeQueue collectorSQ, CollectorTimeLeisure collectorTL, ServerSelectionPolicy selectionPolicy, 
             Behavior arrivalBehavior, Behavior eoSBehavior) {
         this.clock = clock;
         this.order = 10;
         this.entity = entity;
         this.arrivalDistributions = arrivalDistributions;
         this.eoSDistributions = eoSDistributions;
+        this.durabilityDistribution = durabilityDistribution;
         this.collectorToS = collectorToS;
         this.collectorWait = collectorWait;
         this.collectorSQ = collectorSQ;
@@ -96,9 +97,9 @@ public class Arrival implements Event {
 
         }
         double deltaTime = this.behavior.behavior(this.arrivalDistributions, this.clock);
-        fel.insert(new Arrival(this.clock + deltaTime, new Entity(), this.arrivalDistributions, this.eoSDistributions,
-                this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.selectionPolicy, 
-                this.behavior, this.eoSBehavior));
+        fel.insert(new Arrival(this.clock + deltaTime, new Entity(), this.arrivalDistributions, this.eoSDistributions, 
+                this.durabilityDistribution, this.collectorToS, this.collectorWait, this.collectorSQ, 
+                this.collectorTL, this.selectionPolicy, this.behavior, this.eoSBehavior));
 
         server.setDurability(this.durabilityDistribution.sample());
     }
