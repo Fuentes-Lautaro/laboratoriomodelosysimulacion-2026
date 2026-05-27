@@ -13,6 +13,7 @@ import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
 import com.laboratorio.dominio.FutureEventList;
 import com.laboratorio.dominio.Server;
+import com.laboratorio.dominio.ServerSelectionPolicy;
 
 public class Arrival implements Event {
     private final double clock;
@@ -24,6 +25,7 @@ public class Arrival implements Event {
     private final CollectorTimeWait collectorWait;
     private final CollectorSizeQueue collectorSQ;
     private final CollectorTimeLeisure collectorTL;
+    private final ServerSelectionPolicy selectionPolicy;
 
     private final Behavior behavior;
     private Behavior eoSBehavior;
@@ -31,7 +33,8 @@ public class Arrival implements Event {
     public Arrival(Double clock,
             Entity entity, List<Distribution> arrivalDistributions, List<Distribution> eoSDistributions,
             CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, CollectorSizeQueue collectorSQ,
-            CollectorTimeLeisure collectorTL, Behavior arrivalBehavior, Behavior eoSBehavior) {
+            CollectorTimeLeisure collectorTL, ServerSelectionPolicy selectionPolicy, 
+            Behavior arrivalBehavior, Behavior eoSBehavior) {
         this.clock = clock;
         this.order = 10;
         this.entity = entity;
@@ -41,6 +44,7 @@ public class Arrival implements Event {
         this.collectorWait = collectorWait;
         this.collectorSQ = collectorSQ;
         this.collectorTL = collectorTL;
+        this.selectionPolicy = selectionPolicy;
         this.behavior = arrivalBehavior;
         this.eoSBehavior = eoSBehavior;
     }
@@ -66,9 +70,13 @@ public class Arrival implements Event {
     }
 
     @Override
-    public void planificate(FutureEventList fel, Server server) {
+    public void planificate(FutureEventList fel, List<Server> servers){
+
         this.entity.setTimeArrival(this.clock);
         this.collectorToS.collectArrival();
+
+        Server server = this.selectionPolicy.selectServer(servers);
+        this.entity.setServer(server);
 
         if (server.isBusy()) {
 
@@ -89,7 +97,7 @@ public class Arrival implements Event {
         }
         double deltaTime = this.behavior.behavior(this.arrivalDistributions, this.clock);
         fel.insert(new Arrival(this.clock + deltaTime, new Entity(), this.arrivalDistributions, this.eoSDistributions,
-                this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.behavior,
-                this.eoSBehavior));
+                this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorTL, this.selectionPolicy, 
+                this.behavior, this.eoSBehavior));
     }
 }

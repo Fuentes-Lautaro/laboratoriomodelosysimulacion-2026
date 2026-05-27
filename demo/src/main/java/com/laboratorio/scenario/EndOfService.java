@@ -51,9 +51,10 @@ public class EndOfService implements Event {
     }
    
     @Override
-    public void planificate(FutureEventList fel, Server server){
+    public void planificate(FutureEventList fel, List<Server> servers){
 
         Entity e = null;
+        Server server = this.entity.getServer();
         
         if (server.getQueue().size() > 0){ 
 

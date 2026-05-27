@@ -8,7 +8,7 @@ public interface Event {
 
     int getOrder();
 
-    void planificate(FutureEventList fel, Server server);
+    void planificate(FutureEventList fel, List<Server> servers);
 
     Entity getEntity();
 

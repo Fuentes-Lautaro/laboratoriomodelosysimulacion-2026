@@ -66,6 +66,7 @@ public class AirportSim implements Engine {
                         this.collectorWait, 
                         this.collectorSQ, 
                         this.collectorTL, 
+                        this.serverSelectionPolicy,
                         new RushHour(),
                         new SingleBehavior(0)));
 
@@ -84,7 +85,7 @@ public class AirportSim implements Engine {
 
         while (clock < this.simLenght) {
 
-            e.planificate(this.fel, this.servers, this.serverSelectionPolicy;
+            e.planificate(this.fel, this.servers);
 
             System.out.println(this.fel);
 
