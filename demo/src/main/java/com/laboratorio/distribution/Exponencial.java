@@ -12,7 +12,7 @@ public class Exponencial implements Distribution {
    
     @Override
     public double sample() {
-        return (this.mu) * Math.log(1 - Randomizer.nroRandom());
+        return (-this.mu) * Math.log(1 - Randomizer.nroRandom());
     }
 
 }

@@ -55,7 +55,7 @@ public class AirportSim implements Engine {
                         },
                         new ArrayList<>() {
                             {
-                                add(new Exponencial(15));
+                                add(new Uniforme())
                             }
                         },
                         this.collectorToS, 
