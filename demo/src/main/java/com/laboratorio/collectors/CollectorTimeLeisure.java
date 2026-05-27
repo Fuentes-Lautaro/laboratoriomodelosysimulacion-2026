@@ -40,16 +40,25 @@ public class CollectorTimeLeisure implements Collector{
     }
 
     @Override
-    public void printReport() {
-        System.out.println(" ---   REPORTE DE TIEMPO DE OCIO --- ");
-        if (totalTimeLeisure == 0) {
-            System.out.println("No se ha registrado tiempo de ocio.");
-            return;
-        }
-        System.out.println("Tiempo total de ocio: " + this.totalTimeLeisure);
-        System.out.printf("Tiempo total en proporcion del tiempo de simulacion: %.2f%%\n", (this.totalTimeLeisure / 40320.0) * 100);
-        System.out.println("Tiempo mínimo de ocio: " + this.minTimeLeisure);
-        System.out.println("Tiempo máximo de ocio: " + this.maxTimeLeisure);
-        System.out.println("");
+public void printReport() {
+    // Formateador para mantener prolijos los decimales de los minutos
+    java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00");
+
+    System.out.println("\n┌──────────────────────────────────────────────────────────────┐");
+    System.out.println("│                 REPORTE DE TIEMPO DE OCIO                    │");
+    System.out.println("├──────────────────────────────────────────────────────────────┤");
+
+    if (this.totalTimeLeisure == 0) {
+        System.out.printf("│ %-60s │\n", "No se ha registrado tiempo de ocio.");
+    } else {
+        double proporcion = (this.totalTimeLeisure / 40320.0) * 100;
+
+        System.out.printf("│ %-48s : %6s min │\n", "Tiempo total de ocio", df.format(this.totalTimeLeisure));
+        System.out.printf("│ %-48s : %9.2f%% │\n", "Proporcion respecto al tiempo de simulacion", proporcion);
+        System.out.printf("│ %-48s : %6s min │\n", "Tiempo minimo de ocio", df.format(this.minTimeLeisure));
+        System.out.printf("│ %-48s : %6s min │\n", "Tiempo maximo de ocio", df.format(this.maxTimeLeisure));
     }
+
+    System.out.println("└──────────────────────────────────────────────────────────────┘\n");
+}
 }

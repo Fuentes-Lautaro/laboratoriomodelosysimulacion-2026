@@ -29,11 +29,11 @@ public class CollectorTimeWait implements Collector{
     @Override
     public void printReport() {
         System.out.println(" ---   REPORTE DE TIEMPO DE ESPERA --- ");
-        System.out.println("Total de entidades que esperaron: " + this.totalEntities);
+        System.out.println("Total de entidades que esperaron: " + this.totalEntities + " entidades.");
         if (this.totalEntities != 0) {
-            System.out.println("Tiempo máximo de espera: " + this.maxTimeWait);
-            System.out.println("Tiempo mínimo de espera: " + this.minTimeWait);
-            System.out.println("Tiempo promedio de espera: " + (this.totalTimeWait / this.totalEntities));
+            System.out.println("Tiempo máximo de espera: " + this.maxTimeWait + " minutos.");
+            System.out.println("Tiempo mínimo de espera: " + this.minTimeWait + " minutos");
+            System.out.println("Tiempo medio de espera: " + (this.totalTimeWait / this.totalEntities) + " minutos.");
         }
         
         System.out.println("");

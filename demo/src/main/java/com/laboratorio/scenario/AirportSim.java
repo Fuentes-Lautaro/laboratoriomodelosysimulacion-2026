@@ -61,7 +61,7 @@ public class AirportSim implements Engine {
                         },
                         new ArrayList<>() {
                             {
-                                add(new Uniforme(10, 20));
+                                add(new Uniforme(10, 25));
                             }
                         },
                         new Normal(5, 1),
@@ -101,6 +101,6 @@ public class AirportSim implements Engine {
         this.collectorTL.printReport();
 
         for (Server s : this.servers)
-            System.out.println("Durabilidad del server " + s.getId() + " es: " + s.getDurability());
+            System.out.println("Durabilidad de la pista " + s.getId() + " es: " + s.getDurability() + " unidades de durabilidad.");
     }
 }

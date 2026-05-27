@@ -18,7 +18,7 @@ public class CollectorSizeQueue implements Collector{
     @Override
     public void printReport() {
         System.out.println(" ---   REPORTE DE TAMAÑO DE COLA --- ");
-        System.out.println("Tamaño máximo: " + this.maxSizeQueue);
+        System.out.println("Tamaño máximo: " + this.maxSizeQueue + " entidades.");
         System.out.println("");
     }
 }
