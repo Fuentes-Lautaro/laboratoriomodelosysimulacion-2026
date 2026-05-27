@@ -6,6 +6,7 @@
 package com.laboratorio.scenario;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.laboratorio.behaviors.RushHour;
 import com.laboratorio.behaviors.SingleBehavior;
@@ -14,6 +15,7 @@ import com.laboratorio.collectors.CollectorTimeLeisure;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
 import com.laboratorio.distribution.Exponencial;
+import com.laboratorio.distribution.Uniforme;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
@@ -28,13 +30,13 @@ public class AirportSim implements Engine {
 
     private final double simLenght;
     private FutureEventList fel;
-    private Server server;
+    private List<Server> servers;
     private CollectorTimeOnSystem collectorToS;
     private CollectorTimeWait collectorWait;
     private CollectorSizeQueue collectorSQ;
     private CollectorTimeLeisure collectorTL;
 
-    public AirportSim(double simLenght) {
+    public AirportSim(double simLenght, servers) {
         this.simLenght = simLenght;
 
         this.fel = new FutureEventList();
@@ -55,7 +57,7 @@ public class AirportSim implements Engine {
                         },
                         new ArrayList<>() {
                             {
-                                add(new Uniforme())
+                                add(new Uniforme(10, 20));
                             }
                         },
                         this.collectorToS, 
@@ -65,7 +67,7 @@ public class AirportSim implements Engine {
                         new RushHour(),
                         new SingleBehavior(0)));
 
-        this.server = new Airstrip(1, new MyQueue());
+        this.servers = servers;
     }
 
     @Override
