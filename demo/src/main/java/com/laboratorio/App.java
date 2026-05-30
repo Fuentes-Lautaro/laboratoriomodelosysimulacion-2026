@@ -13,19 +13,23 @@ public class App
 {
     public static void main( String[] args )
     {
-        
+        int countLaunch = 0;
         List listServers = new java.util.ArrayList<Airstrip>();
-        for (int i = 1; i <= 5; i++){
+        for (int i = 1; i <= 3; i++){
             listServers.add(new Airstrip(i, new MyQueue()));
         }
 
-        Engine e = new AirportSim(
-                40320d,
-                listServers,
-                new SelectionPolicy()
+        while (countLaunch < 50){
+        
+            Engine e = new AirportSim(
+                    40320d,
+                    listServers,
+                    new SelectionPolicy()
                 );
 
-        e.run();
+            e.run();
 
+            countLaunch++;
+        }
     }
 }
