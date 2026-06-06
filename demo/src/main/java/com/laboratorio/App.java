@@ -19,10 +19,10 @@ public class App
             listServers.add(new Airstrip(i, new MyQueue()));
         }
 
-        while (countLaunch < 50){
+        while (countLaunch < 3){
         
             Engine e = new AirportSim(
-                    40320d,
+                    100d,
                     listServers,
                     new SelectionPolicy()
                 );
