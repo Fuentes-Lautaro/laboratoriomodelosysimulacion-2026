@@ -1,35 +1,55 @@
-package com.laboratorio;
+    package com.laboratorio;
 
-import java.util.List;
+    import java.util.List;
 
-import com.laboratorio.dominio.Engine;
-import com.laboratorio.scenario.AirportSim;
-import com.laboratorio.scenario.Airstrip;
-import com.laboratorio.scenario.MyQueue;
-import com.laboratorio.scenario.SelectionPolicy;
+    import com.laboratorio.dominio.Engine;
+    import com.laboratorio.scenario.AirportSim;
+    import com.laboratorio.scenario.Airstrip;
+    import com.laboratorio.scenario.MyQueue;
+    import com.laboratorio.scenario.SelectionPolicy;
+    import com.laboratorio.collectors.CollectorSizeQueue;
+import com.laboratorio.collectors.CollectorTimeLeisure;
+import com.laboratorio.collectors.CollectorTimeOnSystem;
 
 
-public class App 
-{
-    public static void main( String[] args )
+    public class App 
     {
-        int countLaunch = 0;
-        List listServers = new java.util.ArrayList<Airstrip>();
-        for (int i = 1; i <= 3; i++){
-            listServers.add(new Airstrip(i, new MyQueue()));
-        }
+        public static void main( String[] args )
+        {
+            int countLaunch = 0;
+            int maxLaunchs = 2;
+            List listServers = new java.util.ArrayList<Airstrip>();
+            for (int i = 1; i <= 3; i++){
+                listServers.add(new Airstrip(i, new MyQueue()));
+            }
 
-        while (countLaunch < 3){
-        
-            Engine e = new AirportSim(
-                    100d,
-                    listServers,
-                    new SelectionPolicy()
-                );
+            List<CollectorTimeOnSystem> collectorsToS = new java.util.ArrayList<CollectorTimeOnSystem>();
+            for (int i = 0; i <= maxLaunchs; i++){
+                collectorsToS.add(new CollectorTimeOnSystem());
+            }
 
-            e.run();
+            List<CollectorSizeQueue> collectorsSQ = new java.util.ArrayList<CollectorSizeQueue>();
+            for (int i = 0; i <= maxLaunchs; i++){
+                collectorsSQ.add(new CollectorSizeQueue());
+            }
 
-            countLaunch++;
+            while (countLaunch <= maxLaunchs){
+            
+                Engine e = new AirportSim(
+                        100d,
+                        listServers,
+                        new SelectionPolicy(),
+                        collectorsSQ.get(countLaunch),
+                        collectorsToS.get(countLaunch)
+                    );
+
+                e.run();
+
+                countLaunch++;
+            }
+
+            for (CollectorTimeOnSystem c : collectorsToS){
+                c.printReport();
+            }
         }
     }
-}

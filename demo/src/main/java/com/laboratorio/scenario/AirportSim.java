@@ -39,14 +39,15 @@ public class AirportSim implements Engine {
     private CollectorSizeQueue collectorSQ;
     private CollectorTimeLeisure collectorTL;
 
-    public AirportSim(double simLenght, List<Server> servers, ServerSelectionPolicy serverSelectionPolicy) {
+    public AirportSim(double simLenght, List<Server> servers, ServerSelectionPolicy serverSelectionPolicy, 
+                        CollectorSizeQueue collectorSQ, CollectorTimeOnSystem collectorToS) {
         this.simLenght = simLenght;
 
         this.fel = new FutureEventList();
         
-        this.collectorToS = new CollectorTimeOnSystem();
+        this.collectorToS = collectorToS;
         this.collectorWait = new CollectorTimeWait();
-        this.collectorSQ = new CollectorSizeQueue();
+        this.collectorSQ = collectorSQ;
         this.collectorTL = new CollectorTimeLeisure();
         this.serverSelectionPolicy = serverSelectionPolicy;
 
