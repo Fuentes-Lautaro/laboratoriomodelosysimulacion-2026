@@ -96,7 +96,7 @@ public class AirportSim implements Engine {
             clock = e.getClock();
         }
         
-        this.collectorToS.printReport();
+        /*this.collectorToS.printReport();
         this.collectorWait.printReport();
         this.collectorSQ.printReport();
         this.collectorTL.printReport();
@@ -111,6 +111,6 @@ public class AirportSim implements Engine {
         System.out.printf("│ %-48s : %10.2f │\n", etiquetaPista, s.getDurability());
         }
 
-        System.out.println("└──────────────────────────────────────────────────────────────┘\n");
+        System.out.println("└──────────────────────────────────────────────────────────────┘\n");*/
     }
 }
