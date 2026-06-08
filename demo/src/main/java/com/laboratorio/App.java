@@ -8,8 +8,8 @@
     import com.laboratorio.scenario.MyQueue;
     import com.laboratorio.scenario.SelectionPolicy;
     import com.laboratorio.collectors.CollectorSizeQueue;
-import com.laboratorio.collectors.CollectorTimeLeisure;
-import com.laboratorio.collectors.CollectorTimeOnSystem;
+    import com.laboratorio.collectors.CollectorTimeOnSystem;
+    import com.laboratorio.collectors.CollectorTimeLeisure;
 
 
     public class App 
