@@ -21,6 +21,8 @@ import com.laboratorio.dominio.Engine;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Event;
 import com.laboratorio.dominio.FutureEventList;
+import com.laboratorio.dominio.ModelSpecificator;
+import com.laboratorio.dominio.Queue;
 import com.laboratorio.dominio.Server;
 import com.laboratorio.dominio.ServerSelectionPolicy;
 
@@ -33,22 +35,38 @@ public class AirportSim implements Engine {
     private final double simLenght;
     private FutureEventList fel;
     private List<Server> servers;
+    private List<Queue> queues;
     private ServerSelectionPolicy serverSelectionPolicy;
     private CollectorTimeOnSystem collectorToS;
     private CollectorTimeWait collectorWait;
     private CollectorSizeQueue collectorSQ;
     private CollectorTimeLeisure collectorTL;
 
-    public AirportSim(double simLenght, List<Server> servers, ServerSelectionPolicy serverSelectionPolicy, 
-                        CollectorSizeQueue collectorSQ, CollectorTimeOnSystem collectorToS) {
+    public AirportSim(double simLenght, int numServers, int numQueues, ModelSpecificator model,
+                        ServerSelectionPolicy serverSelectionPolicy, 
+                        CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorTW,
+                        CollectorSizeQueue collectorSQ, CollectorTimeLeisure collectorTL){
+        
+        this.servers = new ArrayList<>();
+        for (int i=1; i < numServers+1; i++){
+            this.servers.add(new Airstrip(i));
+        }
+                            
+        this.queues = new ArrayList<>();
+        for (int i=1; i <= numQueues+1; i++){
+            this.queues.add(new MyQueue());
+        }
+        
+        model.specificate(servers, queues);
+
         this.simLenght = simLenght;
 
         this.fel = new FutureEventList();
         
         this.collectorToS = collectorToS;
-        this.collectorWait = new CollectorTimeWait();
+        this.collectorWait = collectorTW;
         this.collectorSQ = collectorSQ;
-        this.collectorTL = new CollectorTimeLeisure();
+        this.collectorTL = collectorTL;
         this.serverSelectionPolicy = serverSelectionPolicy;
 
         this.fel.insert(
@@ -74,7 +92,6 @@ public class AirportSim implements Engine {
                         new RushHour(),
                         new SingleBehavior(0)));
 
-        this.servers = servers;
     }
 
     @Override

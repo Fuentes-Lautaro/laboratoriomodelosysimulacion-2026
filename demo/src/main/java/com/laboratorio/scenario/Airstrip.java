@@ -11,9 +11,8 @@ public class Airstrip implements Server {
     private double leisureTime;
     private double durability = 3000;
 
-    public Airstrip(int id, Queue queue) {
+    public Airstrip(int id) {
         this.id = id;
-        this.queue = queue;
         this.leisureTime = 0.0;
     }
 
