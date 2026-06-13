@@ -5,13 +5,11 @@ public class CollectorServerStats implements Collector{
     private double totalTimeLeisure;
     private double minTimeLeisure;
     private double maxTimeLeisure;
-    private double finaldurability;
 
     public CollectorServerStats() {
         this.totalTimeLeisure = 0.0;
         this.minTimeLeisure = Double.MAX_VALUE;
         this.maxTimeLeisure = Double.MIN_VALUE;
-        this.finaldurability = 0;
     }
 
     @Override
@@ -39,10 +37,6 @@ public class CollectorServerStats implements Collector{
 
     public double getMaxTimeLeisure() {
         return this.maxTimeLeisure;
-    }
-
-    public double getFinalDurability(){
-        return this.finaldurability;
     }
 
     @Override

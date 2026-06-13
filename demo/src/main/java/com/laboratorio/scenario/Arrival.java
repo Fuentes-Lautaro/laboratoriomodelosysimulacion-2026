@@ -84,7 +84,7 @@ public class Arrival implements Event {
 
         } else {
 
-            server.setLeisureTime(clock);
+            server.getCollectorServerStats().collect(this.clock - server.getLastEntityClock());
 
             server.setEntity(this.entity);
 

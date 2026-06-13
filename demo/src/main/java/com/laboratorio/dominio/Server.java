@@ -1,5 +1,7 @@
 package com.laboratorio.dominio;
 
+import com.laboratorio.collectors.CollectorServerStats;
+
 public interface Server {
 
     long getId();
@@ -13,12 +15,10 @@ public interface Server {
     double getLastEntityClock();
 
     void setLastEntityClock(double lastEntityClock);
-
-    void setLeisureTime(double leisureTime);
-
-    double getLeisureTime();
     
     void setQueue(Queue q);
+
+    CollectorServerStats getCollectorServerStats();
 
     void free();
 

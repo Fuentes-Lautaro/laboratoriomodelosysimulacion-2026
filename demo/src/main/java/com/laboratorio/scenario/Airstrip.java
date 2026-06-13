@@ -1,5 +1,6 @@
 package com.laboratorio.scenario;
 
+import com.laboratorio.collectors.CollectorServerStats;
 import com.laboratorio.dominio.Entity;
 import com.laboratorio.dominio.Queue;
 import com.laboratorio.dominio.Server;
@@ -9,13 +10,14 @@ public class Airstrip implements Server {
     private Entity entity;
     private Queue queue;
     private double lastEntityClock;
-    private double leisureTime;
-    private double durability = 3000;
+    private double durability;
+    private final CollectorServerStats CollectorST;
 
     public Airstrip(int id) {
         this.id = id;
         this.lastEntityClock = 0.0;
-        this.leisureTime = 0.0;
+        this.CollectorST = new CollectorServerStats();
+        this.durability = 3000;
     }
 
     @Override
@@ -59,12 +61,8 @@ public class Airstrip implements Server {
     }
 
     @Override
-    public double getLeisureTime() {
-        return this.leisureTime;
-    }
-    @Override
-    public void setLeisureTime(double leisureTime) {
-        this.leisureTime += leisureTime - this.lastEntityClock;
+    public CollectorServerStats getCollectorServerStats(){
+        return this.CollectorST;
     }
 
     @Override
