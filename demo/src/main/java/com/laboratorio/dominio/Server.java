@@ -10,6 +10,10 @@ public interface Server {
 
     Queue getQueue();
 
+    double getLastEntityClock();
+
+    void setLastEntityClock(double lastEntityClock);
+
     void setLeisureTime(double leisureTime);
 
     double getLeisureTime();

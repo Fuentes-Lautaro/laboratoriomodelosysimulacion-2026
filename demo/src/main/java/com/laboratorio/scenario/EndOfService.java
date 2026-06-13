@@ -74,7 +74,7 @@ public class EndOfService implements Event {
 
             server.free();
 
-            server.setLeisureTime(this.clock);
+            server.setLastEntityClock(clock);
             
         }
         

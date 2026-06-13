@@ -1,15 +1,14 @@
-    package com.laboratorio;
+package com.laboratorio;
 
-    import java.util.List;
-
-    import com.laboratorio.collectors.CollectorSizeQueue;
-import com.laboratorio.collectors.CollectorTimeLeisure;
+import java.util.List;
+import com.laboratorio.collectors.CollectorSizeQueue;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
+import com.laboratorio.collectors.CollectorServerStats;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.models.OneToOneByInsertionOrder;
 import com.laboratorio.scenario.AirportSim;
-    import com.laboratorio.scenario.SelectionPolicy;
+import com.laboratorio.scenario.SelectionPolicy;
 
 
     public class App 
@@ -34,9 +33,9 @@ import com.laboratorio.scenario.AirportSim;
                 collectorsSQ.add(new CollectorSizeQueue());
             }
 
-            List<CollectorTimeLeisure> collectorsTL = new java.util.ArrayList<CollectorTimeLeisure>();
+            List<CollectorServerStats> collectorsST = new java.util.ArrayList<CollectorServerStats>();
             for (int i = 0; i < maxLaunchs; i++){
-                collectorsTL.add(new CollectorTimeLeisure());
+                collectorsST.add(new CollectorServerStats());
             }
 
             while (countLaunch < maxLaunchs){
@@ -50,7 +49,7 @@ import com.laboratorio.scenario.AirportSim;
                     collectorsToS.get(countLaunch),
                     collectorsTW.get(countLaunch),
                     collectorsSQ.get(countLaunch),
-                    collectorsTL.get(countLaunch)
+                    collectorsST.get(countLaunch)
                     );
 
                 e.run();
@@ -69,7 +68,7 @@ import com.laboratorio.scenario.AirportSim;
                 c.printReport();
             }
 
-            for (CollectorTimeLeisure c : collectorsTL){
+            for (CollectorServerStats c : collectorsST){
                 c.printReport();
             }
         }

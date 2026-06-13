@@ -8,11 +8,13 @@ public class Airstrip implements Server {
     private long id;
     private Entity entity;
     private Queue queue;
+    private double lastEntityClock;
     private double leisureTime;
     private double durability = 3000;
 
     public Airstrip(int id) {
         this.id = id;
+        this.lastEntityClock = 0.0;
         this.leisureTime = 0.0;
     }
 
@@ -46,12 +48,23 @@ public class Airstrip implements Server {
         this.queue = q;
     }
 
+    @Override
+    public double getLastEntityClock(){
+        return this.lastEntityClock;
+    }
+
+    @Override
+    public void setLastEntityClock(double lastEntityClock){
+        this.lastEntityClock = lastEntityClock;
+    }
+
+    @Override
     public double getLeisureTime() {
         return this.leisureTime;
     }
-
+    @Override
     public void setLeisureTime(double leisureTime) {
-        this.leisureTime = leisureTime;
+        this.leisureTime += leisureTime - this.lastEntityClock;
     }
 
     @Override
