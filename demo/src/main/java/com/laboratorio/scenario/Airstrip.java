@@ -5,7 +5,7 @@ import com.laboratorio.dominio.Queue;
 import com.laboratorio.dominio.Server;
 
 public class Airstrip implements Server {
-    private long id;
+    private int id;
     private Entity entity;
     private Queue queue;
     private double lastEntityClock;
@@ -68,7 +68,7 @@ public class Airstrip implements Server {
     }
 
     @Override
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 

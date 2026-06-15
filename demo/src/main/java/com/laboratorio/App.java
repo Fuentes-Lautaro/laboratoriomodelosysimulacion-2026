@@ -16,7 +16,8 @@ import com.laboratorio.scenario.SelectionPolicy;
         public static void main( String[] args )
         {
             int countLaunch = 0;
-            int maxLaunchs = 3;
+            int maxLaunchs = 5;
+            int numServers = 3;
 
             List<CollectorTimeOnSystem> collectorsToS = new java.util.ArrayList<CollectorTimeOnSystem>();
             for (int i = 0; i < maxLaunchs; i++){
@@ -33,17 +34,20 @@ import com.laboratorio.scenario.SelectionPolicy;
                 collectorsSQ.add(new CollectorSizeQueue());
             }
 
-            List<CollectorServerStats> collectorsST = new java.util.ArrayList<CollectorServerStats>();
+            List<List<CollectorServerStats>> collectorsST = new java.util.ArrayList<List<CollectorServerStats>>();
             for (int i = 0; i < maxLaunchs; i++){
-                collectorsST.add(new CollectorServerStats());
+                List<CollectorServerStats> cST = new java.util.ArrayList<CollectorServerStats>();
+                for (int j = 0; j < numServers; j++)
+                    cST.add(new CollectorServerStats());
+                collectorsST.add(cST);
             }
 
             while (countLaunch < maxLaunchs){
 
                 Engine e = new AirportSim(
                     40320d,
-                    5,
-                    5,
+                    numServers,
+                    3,
                     new OneToOneByInsertionOrder(),
                     new SelectionPolicy(),
                     collectorsToS.get(countLaunch),
@@ -68,8 +72,10 @@ import com.laboratorio.scenario.SelectionPolicy;
                 c.printReport();
             }
 
-            for (CollectorServerStats c : collectorsST){
-                c.printReport();
+            for (List<CollectorServerStats> c : collectorsST){
+                for (CollectorServerStats v : c){
+                    v.printReport();
+                }
             }
         }
     }

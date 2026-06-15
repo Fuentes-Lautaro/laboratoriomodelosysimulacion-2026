@@ -40,12 +40,12 @@ public class AirportSim implements Engine {
     private CollectorTimeOnSystem collectorToS;
     private CollectorTimeWait collectorWait;
     private CollectorSizeQueue collectorSQ;
-    private CollectorServerStats collectorST;
+    private List<CollectorServerStats> collectorsST;
 
     public AirportSim(double simLenght, int numServers, int numQueues, ModelSpecificator model,
                         ServerSelectionPolicy serverSelectionPolicy, 
                         CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorTW,
-                        CollectorSizeQueue collectorSQ, CollectorServerStats collectorST){
+                        CollectorSizeQueue collectorSQ, List<CollectorServerStats> collectorsST){
         
         this.servers = new ArrayList<>();
         for (int i=1; i < numServers+1; i++){
@@ -66,7 +66,7 @@ public class AirportSim implements Engine {
         this.collectorToS = collectorToS;
         this.collectorWait = collectorTW;
         this.collectorSQ = collectorSQ;
-        this.collectorST = collectorST;
+        this.collectorsST = collectorsST;
         this.serverSelectionPolicy = serverSelectionPolicy;
 
         this.fel.insert(
@@ -87,6 +87,7 @@ public class AirportSim implements Engine {
                         this.collectorToS, 
                         this.collectorWait, 
                         this.collectorSQ,  
+                        this.collectorsST,
                         this.serverSelectionPolicy,
                         new RushHour(),
                         new SingleBehavior(0)));
@@ -110,6 +111,12 @@ public class AirportSim implements Engine {
 
             e = this.fel.imminent();
             clock = e.getClock();
+        }
+
+        int i = 0;
+        for(CollectorServerStats c : collectorsST){
+            c.setFinalDurability(servers.get(i).getDurability());
+            i++;
         }
     }
 }

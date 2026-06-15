@@ -2,7 +2,7 @@ package com.laboratorio.dominio;
 
 public interface Server {
 
-    long getId();
+    int getId();
 
     Entity getEntity(); 
 

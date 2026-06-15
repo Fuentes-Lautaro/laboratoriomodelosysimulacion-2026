@@ -5,7 +5,7 @@ public class CollectorServerStats implements Collector{
     private double totalTimeLeisure;
     private double minTimeLeisure;
     private double maxTimeLeisure;
-    private double finaldurability;
+    private double finalDurability;
 
     public CollectorServerStats() {
         this.totalTimeLeisure = 0.0;
@@ -29,7 +29,7 @@ public class CollectorServerStats implements Collector{
     }
 
     public double getAverageTimeLeisure(double timeSim) {
-        return (this.totalTimeLeisure / timeSim) * 100;
+        return (this.totalTimeLeisure / timeSim) * 40320;
     }
 
     public double getMinTimeLeisure() {
@@ -41,7 +41,11 @@ public class CollectorServerStats implements Collector{
     }
 
     public double getFinalDurability(){
-        return this.finaldurability;
+        return this.finalDurability;
+    }
+
+    public void setFinalDurability(Double finalDurability){
+        this.finalDurability = finalDurability;
     }
 
     @Override
@@ -61,6 +65,7 @@ public class CollectorServerStats implements Collector{
             System.out.printf("│ %-48s : %9.2f%% │\n", "Proporcion respecto al tiempo de simulacion", proporcion);
             System.out.printf("│ %-48s : %6s min │\n", "Tiempo minimo de ocio", df.format(this.minTimeLeisure));
             System.out.printf("│ %-48s : %6s min │\n", "Tiempo maximo de ocio", df.format(this.maxTimeLeisure));
+            System.out.printf("│ %-48s : %6s min │\n", "Durabilidad final de pista", df.format(this.finalDurability));
         }
 
         System.out.println("└──────────────────────────────────────────────────────────────┘\n");
