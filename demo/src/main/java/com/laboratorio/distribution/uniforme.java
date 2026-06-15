@@ -4,6 +4,8 @@ import com.laboratorio.dominio.Distribution;
 
 /**
  * Crea variables aleatorias con una distribucion Uniforme a partir de los valores del intervalo (a,b)
+ * @param a
+ * @param b
  * @author eldem
  */
 public class Uniforme implements Distribution{

@@ -4,6 +4,8 @@ import com.laboratorio.dominio.Randomizer;
 
 /**
  * Crea variables aleatorias con una distribucion normal a partir de una media y una desviacion estandar.
+ * @param mean
+ * @param stdDev
  * @author eldem
  */
 public class Normal implements Distribution{
