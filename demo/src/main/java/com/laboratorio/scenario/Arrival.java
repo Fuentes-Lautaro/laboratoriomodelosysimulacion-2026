@@ -24,7 +24,6 @@ public class Arrival implements Event {
     private final CollectorTimeWait collectorWait;
     private final CollectorSizeQueue collectorSQ;
     private final ServerSelectionPolicy selectionPolicy;
-
     private final Behavior behavior;
     private Behavior eoSBehavior;
 

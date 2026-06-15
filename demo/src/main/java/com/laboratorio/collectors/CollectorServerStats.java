@@ -11,7 +11,6 @@ public class CollectorServerStats implements Collector{
         this.totalTimeLeisure = 0.0;
         this.minTimeLeisure = Double.MAX_VALUE;
         this.maxTimeLeisure = Double.MIN_VALUE;
-        this.finaldurability = 0;
     }
 
     @Override
