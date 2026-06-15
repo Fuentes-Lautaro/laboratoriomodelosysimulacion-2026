@@ -1,5 +1,9 @@
 package com.laboratorio.dominio;
 
+/**
+ * Clase entidad.
+ * @author eldem
+ */
 public class Entity {
     
     private static int contador = 0;
