@@ -1,12 +1,13 @@
 package com.laboratorio.collectors;
 import com.laboratorio.dominio.Collector;
 
-public class CollectorTimeLeisure implements Collector{
+public class CollectorServerStats implements Collector{
     private double totalTimeLeisure;
     private double minTimeLeisure;
     private double maxTimeLeisure;
+    private double finaldurability;
 
-    public CollectorTimeLeisure() {
+    public CollectorServerStats() {
         this.totalTimeLeisure = 0.0;
         this.minTimeLeisure = Double.MAX_VALUE;
         this.maxTimeLeisure = Double.MIN_VALUE;
@@ -24,19 +25,23 @@ public class CollectorTimeLeisure implements Collector{
     }
 
     public double getTotalTimeLeisure() {
-        return totalTimeLeisure;
+        return this.totalTimeLeisure;
     }
 
-    public double getAverageTimeLeisure() {
-        return (this.totalTimeLeisure / 40320.0) * 100;
+    public double getAverageTimeLeisure(double timeSim) {
+        return (this.totalTimeLeisure / timeSim) * 100;
     }
 
     public double getMinTimeLeisure() {
-        return minTimeLeisure;
+        return this.minTimeLeisure;
     }
 
     public double getMaxTimeLeisure() {
-        return maxTimeLeisure;
+        return this.maxTimeLeisure;
+    }
+
+    public double getFinalDurability(){
+        return this.finaldurability;
     }
 
     @Override
