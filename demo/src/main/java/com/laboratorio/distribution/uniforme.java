@@ -2,6 +2,10 @@ package com.laboratorio.distribution;
 
 import com.laboratorio.dominio.Distribution;
 
+/**
+ * Crea variables aleatorias con una distribucion Uniforme a partir de los valores del intervalo (a,b)
+ * @author eldem
+ */
 public class Uniforme implements Distribution{
     private double a;
     private double b;

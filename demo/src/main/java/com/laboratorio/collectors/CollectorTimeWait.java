@@ -1,6 +1,10 @@
 package com.laboratorio.collectors;
 import com.laboratorio.dominio.Collector;
 
+/**
+ * Colleciona estadisticas sobre el tiempo de espera en el sistema.
+ * @author eldem
+ */
 public class CollectorTimeWait implements Collector{
     private double totalTimeWait;
     private int totalEntities;

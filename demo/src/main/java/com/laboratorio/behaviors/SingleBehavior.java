@@ -5,6 +5,10 @@ import java.util.List;
 import com.laboratorio.dominio.Behavior;
 import com.laboratorio.dominio.Distribution;
 
+/**
+ * A partir de una lista de distribuciones, devuelve la distribucion que se encuentra en la posicion x.
+ * @author eldem
+ */
 public class SingleBehavior implements Behavior{
 
     private final int position;

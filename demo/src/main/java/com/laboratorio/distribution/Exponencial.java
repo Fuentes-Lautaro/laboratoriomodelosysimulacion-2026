@@ -2,6 +2,10 @@ package com.laboratorio.distribution;
 import com.laboratorio.dominio.Distribution;
 import com.laboratorio.dominio.Randomizer;
 
+/**
+ * Crea variables aleatorias con una distribucion exponencial a partir de una media mu.
+ * @author eldem
+ */
 public class Exponencial implements Distribution {
 
     private double mu;

@@ -9,7 +9,7 @@ import com.laboratorio.dominio.Distribution;
 import com.laboratorio.dominio.Randomizer;
 
 /**
- *
+ * Crea variables aleatorias con una distribucion empirica discreta.
  * @author eldem
  */
 public class EmpiricaDiscreta implements Distribution {

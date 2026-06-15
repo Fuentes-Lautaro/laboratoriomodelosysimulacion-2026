@@ -1,6 +1,10 @@
 package com.laboratorio.collectors;
 import com.laboratorio.dominio.Collector;
 
+/**
+ * Colecciona estadisticas sobre cantidad de entidades que arriban y salen del sistema, y su tiempo en el sistema.
+ * @author eldem
+ */
 public class CollectorTimeOnSystem implements Collector{
     private int totalEntitiesArrival;
     private int totalEntitiesEoS;

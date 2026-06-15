@@ -1,6 +1,10 @@
 package com.laboratorio.collectors;
 import com.laboratorio.dominio.Collector;
 
+/**
+ * Colecciona las estadisticas de un servidor.
+ * @author eldem
+ */
 public class CollectorServerStats implements Collector{
     private double totalTimeLeisure;
     private double minTimeLeisure;

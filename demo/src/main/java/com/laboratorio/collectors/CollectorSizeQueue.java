@@ -1,6 +1,10 @@
 package com.laboratorio.collectors;
 import com.laboratorio.dominio.Collector;
 
+/**
+ * Colecciona estadisticas del tamanio de las colas.
+ * @author eldem
+ */
 public class CollectorSizeQueue implements Collector{
     private double maxSizeQueue;
 

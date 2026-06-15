@@ -2,6 +2,10 @@ package com.laboratorio.distribution;
 import com.laboratorio.dominio.Distribution;
 import com.laboratorio.dominio.Randomizer;
 
+/**
+ * Crea variables aleatorias con una distribucion normal a partir de una media y una desviacion estandar.
+ * @author eldem
+ */
 public class Normal implements Distribution{
 
     private double mean;

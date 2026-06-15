@@ -5,15 +5,12 @@ import java.util.List;
 import com.laboratorio.dominio.Behavior;
 import com.laboratorio.dominio.Distribution;
 
+/**
+ * A partir de una lista de distribuciones, selecciona cual usar dependiendo la hora de la simulacion
+ * @author eldem
+ */
 public class RushHour implements Behavior {
 
-
-    /**
-     * CHECKEAR QUE FUNCIONA BIEN!!! SINO NO ANDA NADA
-     * @param distributions
-     * @param clock
-     * @return
-     */
     @Override
     public double behavior(List<Distribution> distributions, double clock) {
         double r =clock % 1440;
