@@ -53,11 +53,8 @@ public class CollectorTimeOnSystem implements Collector{
         return minTime;
     }
 
-    public double getAverageTime(){
-        if (this.totalEntitiesEoS>0)
-            return this.totalTime/totalEntitiesEoS;
-        else
-            return 0;
+    public double getTotalTimeToS(){
+        return this.totalTime;
     }
     
     @Override

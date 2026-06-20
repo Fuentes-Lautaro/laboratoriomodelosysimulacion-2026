@@ -19,6 +19,8 @@ import com.laboratorio.scenario.SelectionPolicy;
             int countLaunch = 0;
             int maxLaunchs = 3;
             int numServers = 3;
+            int totalEntitiesArrival = 0, totalEntitiesEoS = 0;
+            double maxTime = 0, minTime = 0, totalTime= 0;
 
             List<CollectorTimeOnSystem> collectorsToS = new java.util.ArrayList<CollectorTimeOnSystem>();
             for (int i = 0; i < maxLaunchs; i++){
@@ -58,25 +60,12 @@ import com.laboratorio.scenario.SelectionPolicy;
                     );
 
                 e.run();
+
+                totalEntitiesArrival += collectorsToS.get(countLaunch).getTotalEntitiesArrival();
                 countLaunch++;
             }
 
-            for (CollectorTimeOnSystem c : collectorsToS){
-                
-            }
+            
 
-            for (CollectorTimeWait c : collectorsTW){
-                c.printReport();
-            }
-
-            for (CollectorSizeQueue c : collectorsSQ){
-                c.printReport();
-            }
-
-            for (List<CollectorServerStats> c : collectorsST){
-                for (CollectorServerStats v : c){
-                    v.printReport();
-                }
-            }
         }
     }
