@@ -53,6 +53,13 @@ public class CollectorTimeOnSystem implements Collector{
         return minTime;
     }
 
+    public double getAverageTime(){
+        if (this.totalEntitiesEoS>0)
+            return this.totalTime/totalEntitiesEoS;
+        else
+            return 0;
+    }
+    
     @Override
     public void printReport() {
         java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00");

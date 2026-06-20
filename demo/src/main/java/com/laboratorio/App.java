@@ -1,10 +1,11 @@
 package com.laboratorio;
 
 import java.util.List;
+
+import com.laboratorio.collectors.CollectorServerStats;
 import com.laboratorio.collectors.CollectorSizeQueue;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
-import com.laboratorio.collectors.CollectorServerStats;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.models.OneToOneByInsertionOrder;
 import com.laboratorio.scenario.AirportSim;
@@ -16,7 +17,7 @@ import com.laboratorio.scenario.SelectionPolicy;
         public static void main( String[] args )
         {
             int countLaunch = 0;
-            int maxLaunchs = 5;
+            int maxLaunchs = 3;
             int numServers = 3;
 
             List<CollectorTimeOnSystem> collectorsToS = new java.util.ArrayList<CollectorTimeOnSystem>();
@@ -61,7 +62,7 @@ import com.laboratorio.scenario.SelectionPolicy;
             }
 
             for (CollectorTimeOnSystem c : collectorsToS){
-                c.printReport();
+                
             }
 
             for (CollectorTimeWait c : collectorsTW){

@@ -30,6 +30,13 @@ public class CollectorTimeWait implements Collector{
         }
     }
 
+    public double getAverageTime(){
+        if (totalEntities>0)
+            return totalTimeWait/totalEntities;
+        else
+            return 0;
+    }
+    
     @Override
     public void printReport() {
         java.text.DecimalFormat df = new java.text.DecimalFormat("#,##0.00");

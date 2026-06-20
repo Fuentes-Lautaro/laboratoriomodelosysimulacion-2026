@@ -32,10 +32,6 @@ public class CollectorServerStats implements Collector{
         return this.totalTimeLeisure;
     }
 
-    public double getAverageTimeLeisure(double timeSim) {
-        return (this.totalTimeLeisure / timeSim) * 40320;
-    }
-
     public double getMinTimeLeisure() {
         return this.minTimeLeisure;
     }
@@ -50,6 +46,13 @@ public class CollectorServerStats implements Collector{
 
     public void setFinalDurability(Double finalDurability){
         this.finalDurability = finalDurability;
+    }
+
+    public double getAverageTime(double time){
+        if (time>0)
+            return this.totalTimeLeisure/time;
+        else
+            return 0;
     }
 
     @Override
