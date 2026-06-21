@@ -30,11 +30,20 @@ public class CollectorTimeWait implements Collector{
         }
     }
 
-    public double getAverageTime(){
-        if (totalEntities>0)
-            return totalTimeWait/totalEntities;
-        else
-            return 0;
+    public double getTotalEntitiesWait(){
+        return this.totalEntities;
+    }
+
+    public double getMaxTimeWait(){
+        return this.maxTimeWait;
+    }
+
+    public double getMinTimeWait(){
+        return this.minTimeWait;
+    }
+
+    public double getTotalTimeWait(){
+        return this.totalTimeWait;
     }
     
     @Override

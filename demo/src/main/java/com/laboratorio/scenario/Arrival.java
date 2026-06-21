@@ -27,7 +27,7 @@ public class Arrival implements Event {
     private final List<CollectorServerStats> collectorsST;
     private final ServerSelectionPolicy selectionPolicy;
     private final Behavior behavior;
-    private Behavior eoSBehavior;
+    private final Behavior eoSBehavior;
 
     public Arrival(Double clock,
             Entity entity, List<Distribution> arrivalDistributions, List<Distribution> eoSDistributions,

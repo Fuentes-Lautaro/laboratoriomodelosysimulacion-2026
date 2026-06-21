@@ -6,8 +6,8 @@ import com.laboratorio.dominio.Collector;
  * @author eldem
  */
 public class CollectorTimeOnSystem implements Collector{
-    private int totalEntitiesArrival;
-    private int totalEntitiesEoS;
+    private double totalEntitiesArrival;
+    private double totalEntitiesEoS;
     private double maxTime;
     private double minTime;
     private double totalTime;
@@ -37,10 +37,10 @@ public class CollectorTimeOnSystem implements Collector{
         }
     }
 
-    public int getTotalEntitiesArrival() {
+    public double getTotalEntitiesArrival() {
         return totalEntitiesArrival;
     }
-    public int getTotalEntitiesEoS() {
+    public double getTotalEntitiesEoS() {
         return totalEntitiesEoS;
     }
 
@@ -56,6 +56,8 @@ public class CollectorTimeOnSystem implements Collector{
     public double getTotalTimeToS(){
         return this.totalTime;
     }
+
+    
     
     @Override
     public void printReport() {
