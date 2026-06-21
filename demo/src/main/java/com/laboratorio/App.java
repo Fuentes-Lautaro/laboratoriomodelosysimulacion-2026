@@ -19,8 +19,9 @@ import com.laboratorio.scenario.SelectionPolicy;
         public static void main( String[] args )
         {
             int countLaunch = 0;
-            int maxLaunchs = 3;
+            int maxLaunchs = 45;
             int numServers = 3;
+            int numQueues = 3;
 
             List<CollectorTimeOnSystem> collectorsToS = new ArrayList<CollectorTimeOnSystem>();
             for (int i = 0; i < maxLaunchs; i++){
@@ -50,7 +51,7 @@ import com.laboratorio.scenario.SelectionPolicy;
                 Engine e = new AirportSim(
                     40320d,
                     numServers,
-                    3,
+                    numQueues,
                     new OneToOneByInsertionOrder(),
                     new SelectionPolicy(),
                     collectorsToS.get(countLaunch),
@@ -93,45 +94,95 @@ import com.laboratorio.scenario.SelectionPolicy;
             for (CollectorSizeQueue c : collectorsSQ){
                 maxQueueList.add(c.getMaxSizeQueue());
             }
-            Intervals interval = new Intervals();
 
-            System.out.println("\n--- RESULTADOS DE INTERVALOS DE TIEMPO EN SISTEMA ---");
+            Intervals interval = new Intervals();
+            
+            String mainSeparator = "=======================================================================================";
+            String subSeparator  = "---------------------------------------------------------------------------------------";
+
+            System.out.println("\n" + mainSeparator);
+            System.out.println(" [>>>] RESULTADOS DE INTERVALOS DE TIEMPO EN SISTEMA (en minutos)");
+            System.out.println(mainSeparator);
 
             interval.calculateInterval(entitiesArrival, 1.96d);
-            System.out.printf("%-20s %s%n", "Arribos:", interval.toString());
+            System.out.printf("  [*] %-60s %s%n", "Arribos:", interval.toString());
 
             interval.calculateInterval(entitiesEoS, 1.96d);
-            System.out.printf("%-20s %s%n", "Salidas:", interval.toString());
+            System.out.printf("  [*] %-60s %s%n", "Salidas:", interval.toString());
 
             interval.calculateInterval(maxTimeToS, 1.96d);
-            System.out.printf("%-20s %s%n", "Tiempo Máximo:", interval.toString());
+            System.out.printf("  [*] %-60s %s%n", "Tiempo Máximo:", interval.toString());
 
             interval.calculateInterval(minTimeToS, 1.96d);
-            System.out.printf("%-20s %s%n", "Tiempo Mínimo:", interval.toString());
+            System.out.printf("  [*] %-60s %s%n", "Tiempo Mínimo:", interval.toString());
 
             interval.calculateInterval(averageTimeToS, 1.96d);
-            System.out.printf("%-20s %s%n", "Tiempo Promedio:", interval.toString());
+            System.out.printf("  [*] %-60s %s%n", "Tiempo Promedio:", interval.toString());
 
-            System.out.println("--------------------------------\n");
 
-                        System.out.println("\n--- RESULTADOS DE INTERVALOS DE TIEMPO DE ESPERA ---");
+            System.out.println("\n" + mainSeparator);
+            System.out.println(" [>>>] RESULTADOS DE INTERVALOS DE TIEMPO DE ESPERA (en minutos)");
+            System.out.println(mainSeparator);
 
             interval.calculateInterval(entitiesWait, 1.96d);
-            System.out.printf("%-20s %s%n", "Total Entidades:", interval.toString());
+            System.out.printf("  [+] %-60s %s%n", "Total Entidades:", interval.toString());
 
             interval.calculateInterval(maxTimeWait, 1.96d);
-            System.out.printf("%-20s %s%n", "Tiempo Máximo:", interval.toString());
+            System.out.printf("  [+] %-60s %s%n", "Tiempo Máximo:", interval.toString());
 
             interval.calculateInterval(minTimeWait, 1.96d);
-            System.out.printf("%-20s %s%n", "Tiempo Mínimo:", interval.toString());
+            System.out.printf("  [+] %-60s %s%n", "Tiempo Mínimo:", interval.toString());
 
             interval.calculateInterval(averageTimeWait, 1.96d);
-            System.out.printf("%-20s %s%n", "Tiempo Promedio:", interval.toString());
+            System.out.printf("  [+] %-60s %s%n", "Tiempo Promedio:", interval.toString());
 
-            System.out.println("--------------------------------\n");
 
-                     System.out.println("\n--- RESULTADOS DE INTERVALOS DE TAMANO DE LA COLA ---");
+            System.out.println("\n" + mainSeparator);
+            System.out.println(" [>>>] RESULTADOS DE INTERVALOS DE TAMANO DE LA COLA (en cantidad de entidades)");
+            System.out.println(mainSeparator);
+
             interval.calculateInterval(maxQueueList, 1.96d);
-            System.out.printf("%-20s %s%n", "Tamano Maximo:", interval.toString());
+            System.out.printf("  [*] %-60s %s%n", "Tamano Maximo:", interval.toString());
+
+
+            System.out.println("\n" + mainSeparator);
+            System.out.println(" [>>>] RESULTADOS DE INTERVALOS DE ESTADISTICAS DE LOS SERVIDORES (en minutos)");
+            System.out.println(mainSeparator);
+            
+            for (int i = 0; i < numServers; i++){
+                int aux = i + 1;
+                List<Double> maxTimeLeisure = new ArrayList<Double>();
+                List<Double> minTimeLeisure = new ArrayList<Double>();
+                List<Double> finalDurability = new ArrayList<Double>();
+                List<Double> averageTimeLeisure = new ArrayList<Double>();
+                
+                System.out.println(subSeparator);
+                System.out.println("  -> SERVER " + aux);
+                System.out.println(subSeparator);
+                
+                for (List<CollectorServerStats> c : collectorsST){
+                    maxTimeLeisure.add(c.get(i).getMaxTimeLeisure());
+                    minTimeLeisure.add(c.get(i).getMinTimeLeisure());
+                    finalDurability.add(c.get(i).getFinalDurability());
+                    averageTimeLeisure.add(c.get(i).getTotalTimeLeisure() * 100 / 40320);
+                }
+
+                interval.calculateInterval(maxTimeLeisure, 1.96d);
+                System.out.printf("    > %-60s %s%n", "Tiempo Máximo de Ocio:", interval.toString());
+
+                interval.calculateInterval(minTimeLeisure, 1.96d);
+                System.out.printf("    > %-60s %s%n", "Tiempo Mínimo de Ocio:", interval.toString());
+
+                interval.calculateInterval(averageTimeLeisure, 1.96d);
+                System.out.printf("    > %-60s %s%n", "Proporcion de ocio sobre tiempo total (%):", interval.toString());
+
+                interval.calculateInterval(finalDurability, 1.96d);
+                System.out.printf("    > %-60s %s%n", "Durabilidad final:", interval.toString());
+            }
+
+            System.out.println("\n" + mainSeparator);
+            System.out.printf(" [i] FIN DE LA SIMULACION - EJECUCIONES TOTALES REALIZADAS: %d%n", maxLaunchs);
+            
+            System.out.println(mainSeparator + "\n");
         }
     }

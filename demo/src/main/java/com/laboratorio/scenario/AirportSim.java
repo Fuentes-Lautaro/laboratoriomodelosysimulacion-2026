@@ -97,7 +97,7 @@ public class AirportSim implements Engine {
     @Override
     public void run() {
 
-        System.out.println(this.fel);
+        //System.out.println(this.fel);
 
         Event e = this.fel.imminent();
 
@@ -107,7 +107,7 @@ public class AirportSim implements Engine {
 
             e.planificate(this.fel, this.servers);
 
-            System.out.println(this.fel);
+//            System.out.println(this.fel);
 
             e = this.fel.imminent();
             clock = e.getClock();

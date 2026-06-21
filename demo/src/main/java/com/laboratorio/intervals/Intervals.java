@@ -6,10 +6,14 @@ import java.util.Locale;
 
 import com.laboratorio.dominio.Interval;
 
+/**
+ * Clase para crear intervalos de confianza con un 95%.
+ * @author eldem
+ */
 public class Intervals implements Interval {
     private double lu;
     private double ld;
-    private double marginOfError;
+    private double error;
 
     public Intervals(){
         this.lu = 0;
@@ -24,7 +28,7 @@ public class Intervals implements Interval {
             mean += d;
         }
 
-        mean = mean/values.size();
+        mean = mean / values.size();
 
         for (Double d : values){
             stdev += Math.pow((d - mean), 2);
@@ -34,12 +38,18 @@ public class Intervals implements Interval {
 
         stdev = Math.sqrt(stdev);
 
-        marginOfError = z * (stdev / Math.sqrt(values.size()));
+        error = z * (stdev / Math.sqrt(values.size()));
 
-        this.lu = mean + marginOfError;
-        this.ld = mean - marginOfError;
+        this.lu = mean + error;
+        
+        this.ld = mean - error;
     }
 
+    //GETTER EN CASO DE QUERER MOSTRAR EL MARGEN DE ERROR
+    public double getError(){
+        return this.error;
+    }
+    
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("#.####", new DecimalFormatSymbols(Locale.US));
