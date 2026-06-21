@@ -74,7 +74,7 @@ import com.laboratorio.scenario.SelectionPolicy;
                 entitiesEoS.add(c.getTotalEntitiesEoS());
                 maxTimeToS.add(c.getMaxTimeToS());
                 minTimeToS.add(c.getMinTimeToS());
-                averageTimeToS.add(c.getTotalTimeToS() / c.getTotalEntitiesArrival());
+                averageTimeToS.add(c.getTotalTimeToS() / c.getTotalEntitiesEoS());
             }
 
             List<Double> entitiesWait = new ArrayList<Double>();
@@ -88,6 +88,11 @@ import com.laboratorio.scenario.SelectionPolicy;
                 averageTimeWait.add(c.getTotalTimeWait() / c.getTotalEntitiesWait());
             }
 
+            List<Double> maxQueueList = new ArrayList<Double>();
+
+            for (CollectorSizeQueue c : collectorsSQ){
+                maxQueueList.add(c.getMaxSizeQueue());
+            }
             Intervals interval = new Intervals();
 
             System.out.println("\n--- RESULTADOS DE INTERVALOS DE TIEMPO EN SISTEMA ---");
@@ -125,5 +130,8 @@ import com.laboratorio.scenario.SelectionPolicy;
 
             System.out.println("--------------------------------\n");
 
+                     System.out.println("\n--- RESULTADOS DE INTERVALOS DE TAMANO DE LA COLA ---");
+            interval.calculateInterval(maxQueueList, 1.96d);
+            System.out.printf("%-20s %s%n", "Tamano Maximo:", interval.toString());
         }
     }

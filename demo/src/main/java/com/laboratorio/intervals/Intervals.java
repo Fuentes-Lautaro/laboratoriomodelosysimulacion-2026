@@ -9,8 +9,9 @@ import com.laboratorio.dominio.Interval;
 public class Intervals implements Interval {
     private double lu;
     private double ld;
+    private double marginOfError;
 
-    public void Intervals(){
+    public Intervals(){
         this.lu = 0;
         this.ld = 0;
     }
@@ -33,8 +34,10 @@ public class Intervals implements Interval {
 
         stdev = Math.sqrt(stdev);
 
-        this.lu = mean + stdev * z;
-        this.ld = mean - stdev * z;
+        marginOfError = z * (stdev / Math.sqrt(values.size()));
+
+        this.lu = mean + marginOfError;
+        this.ld = mean - marginOfError;
     }
 
     @Override

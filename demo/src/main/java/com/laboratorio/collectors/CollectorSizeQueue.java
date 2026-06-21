@@ -12,6 +12,10 @@ public class CollectorSizeQueue implements Collector{
         this.maxSizeQueue = Double.MIN_VALUE;
     }
 
+    public double getMaxSizeQueue(){
+        return this.maxSizeQueue;
+    }
+
     @Override
     public void collect(double sizeQueue) {
         if (sizeQueue > this.maxSizeQueue) {
