@@ -20,7 +20,7 @@ import com.laboratorio.selectionPolicys.FreeLeftOrMinQueue;
             int countLaunch = 0;
             int maxLaunchs = 50;
             int numServers = 3;
-            int numQueues = 3;
+            int numQueues = 1;
 
             List<CollectorTimeOnSystem> collectorsToS = new ArrayList<>();
             for (int i = 0; i < maxLaunchs; i++){
