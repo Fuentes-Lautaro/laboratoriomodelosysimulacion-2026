@@ -9,8 +9,8 @@ import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
 import com.laboratorio.dominio.Engine;
 import com.laboratorio.intervals.Intervals;
-import com.laboratorio.models.OneToOneByInsertionOrder;
-import com.laboratorio.scenario.AirportSim;     
+import com.laboratorio.models.OneQueueToNServers;
+import com.laboratorio.scenario.AirportSim;
 import com.laboratorio.scenario.SelectionPolicy;
 
 
@@ -19,9 +19,9 @@ import com.laboratorio.scenario.SelectionPolicy;
         public static void main( String[] args )
         {
             int countLaunch = 0;
-            int maxLaunchs = 45;
-            int numServers = 3;
-            int numQueues = 3;
+            int maxLaunchs = 50;
+            int numServers = 7;
+            int numQueues = 1;
 
             List<CollectorTimeOnSystem> collectorsToS = new ArrayList<CollectorTimeOnSystem>();
             for (int i = 0; i < maxLaunchs; i++){
@@ -52,7 +52,7 @@ import com.laboratorio.scenario.SelectionPolicy;
                     40320d,
                     numServers,
                     numQueues,
-                    new OneToOneByInsertionOrder(),
+                    new OneQueueToNServers(),
                     new SelectionPolicy(),
                     collectorsToS.get(countLaunch),
                     collectorsTW.get(countLaunch),
@@ -186,3 +186,4 @@ import com.laboratorio.scenario.SelectionPolicy;
             System.out.println(mainSeparator + "\n");
         }
     }
+    //APROBANOS DANI POR FAVOR
