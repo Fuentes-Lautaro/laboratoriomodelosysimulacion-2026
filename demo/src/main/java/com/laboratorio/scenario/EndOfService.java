@@ -16,11 +16,12 @@ public class EndOfService implements Event {
     private final int order;
     private final Entity entity;
     private final List<Distribution> distributions;
+    private final Distribution durabilityDistribution;
     private final CollectorTimeOnSystem collectorToS;
     private final CollectorTimeWait collectorWait;
     private final Behavior behavior;
 
-    public EndOfService(Double clock, Entity e, List<Distribution> distributions, 
+    public EndOfService(Double clock, Entity e, List<Distribution> distributions, Distribution durabilityDistribution,
                         CollectorTimeOnSystem collectorToS, CollectorTimeWait collectorWait, 
                         Behavior behavior) 
                         {
@@ -28,6 +29,7 @@ public class EndOfService implements Event {
         this.order = 0;
         this.entity = e;
         this.distributions = distributions;
+        this.durabilityDistribution = durabilityDistribution;
         this.collectorToS = collectorToS;
         this.collectorWait = collectorWait;
         this.behavior = behavior;
@@ -63,13 +65,17 @@ public class EndOfService implements Event {
 
             e = server.getQueue().next();
 
+            e.setServer(server);
+
             server.setEntity(e);
+
+            server.setDurability(this.durabilityDistribution.sample());
 
             this.collectorWait.collect(this.clock - e.getTimeArrival());
 
             double deltaTime = this.behavior.behavior(this.distributions, this.clock);
-            fel.insert(new EndOfService(this.clock + deltaTime, e, this.distributions, this.collectorToS, 
-                                        this.collectorWait, this.behavior));
+            fel.insert(new EndOfService(this.clock + deltaTime, e, this.distributions, this.durabilityDistribution, 
+                        this.collectorToS, this.collectorWait, this.behavior));
         }else{
 
             server.free();

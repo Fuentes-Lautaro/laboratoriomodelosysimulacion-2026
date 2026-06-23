@@ -11,8 +11,7 @@ import com.laboratorio.dominio.Engine;
 import com.laboratorio.intervals.Intervals;
 import com.laboratorio.models.OneQueueToNServers;
 import com.laboratorio.scenario.AirportSim;
-import com.laboratorio.scenario.SelectionPolicy;
-
+import com.laboratorio.selectionPolicys.FreeLeftOrMinQueue;
 
     public class App 
     {
@@ -20,27 +19,27 @@ import com.laboratorio.scenario.SelectionPolicy;
         {
             int countLaunch = 0;
             int maxLaunchs = 50;
-            int numServers = 7;
-            int numQueues = 1;
+            int numServers = 3;
+            int numQueues = 3;
 
-            List<CollectorTimeOnSystem> collectorsToS = new ArrayList<CollectorTimeOnSystem>();
+            List<CollectorTimeOnSystem> collectorsToS = new ArrayList<>();
             for (int i = 0; i < maxLaunchs; i++){
                 collectorsToS.add(new CollectorTimeOnSystem());
             }
 
-            List<CollectorTimeWait> collectorsTW = new ArrayList<CollectorTimeWait>();
+            List<CollectorTimeWait> collectorsTW = new ArrayList<>();
             for (int i = 0; i < maxLaunchs; i++){
                 collectorsTW.add(new CollectorTimeWait());
             }
 
-            List<CollectorSizeQueue> collectorsSQ = new ArrayList<CollectorSizeQueue>();
+            List<CollectorSizeQueue> collectorsSQ = new ArrayList<>();
             for (int i = 0; i < maxLaunchs; i++){
                 collectorsSQ.add(new CollectorSizeQueue());
             }
 
             List<List<CollectorServerStats>> collectorsST = new ArrayList<List<CollectorServerStats>>();
             for (int i = 0; i < maxLaunchs; i++){
-                List<CollectorServerStats> cST = new ArrayList<CollectorServerStats>();
+                List<CollectorServerStats> cST = new ArrayList<>();
                 for (int j = 0; j < numServers; j++)
                     cST.add(new CollectorServerStats());
                 collectorsST.add(cST);
@@ -53,7 +52,7 @@ import com.laboratorio.scenario.SelectionPolicy;
                     numServers,
                     numQueues,
                     new OneQueueToNServers(),
-                    new SelectionPolicy(),
+                    new FreeLeftOrMinQueue(),
                     collectorsToS.get(countLaunch),
                     collectorsTW.get(countLaunch),
                     collectorsSQ.get(countLaunch),
@@ -65,31 +64,38 @@ import com.laboratorio.scenario.SelectionPolicy;
                 countLaunch++;
             }
 
-            List<Double> entitiesArrival = new ArrayList<Double>();
-            List<Double> entitiesEoS = new ArrayList<Double>();
-            List<Double> maxTimeToS = new ArrayList<Double>();
-            List<Double> minTimeToS = new ArrayList<Double>();
-            List<Double> averageTimeToS = new ArrayList<Double>();
+            List<Double> entitiesArrival = new ArrayList<>();
+            List<Double> entitiesEoS = new ArrayList<>();
+            List<Double> maxTimeToS = new ArrayList<>();
+            List<Double> minTimeToS = new ArrayList<>();
+            List<Double> averageTimeToS = new ArrayList<>();
+            List<Double> auxCount = new ArrayList<>();
             for (CollectorTimeOnSystem c : collectorsToS){
                 entitiesArrival.add(c.getTotalEntitiesArrival());
                 entitiesEoS.add(c.getTotalEntitiesEoS());
                 maxTimeToS.add(c.getMaxTimeToS());
                 minTimeToS.add(c.getMinTimeToS());
-                averageTimeToS.add(c.getTotalTimeToS() / c.getTotalEntitiesEoS());
+                if (c.getTotalEntitiesEoS() > 0){
+                    averageTimeToS.add(c.getTotalTimeToS() / c.getTotalEntitiesEoS());
+                }else
+                    averageTimeToS.add(0d);
+                auxCount.add(c.getTotalEntitiesEoS());
             }
 
-            List<Double> entitiesWait = new ArrayList<Double>();
-            List<Double> maxTimeWait = new ArrayList<Double>();
-            List<Double> minTimeWait = new ArrayList<Double>();
-            List<Double> averageTimeWait = new ArrayList<Double>();
+            List<Double> entitiesWait = new ArrayList<>();
+            List<Double> maxTimeWait = new ArrayList<>();
+            List<Double> minTimeWait = new ArrayList<>();
+            List<Double> averageTimeWait = new ArrayList<>();
+            int auxCountd = 0;
             for (CollectorTimeWait c : collectorsTW){
                 entitiesWait.add(c.getTotalEntitiesWait());
                 maxTimeWait.add(c.getMaxTimeWait());
                 minTimeWait.add(c.getMinTimeWait());
-                averageTimeWait.add(c.getTotalTimeWait() / c.getTotalEntitiesWait());
+                averageTimeWait.add(c.getTotalTimeWait() / auxCount.get(auxCountd));
+                auxCountd++;
             }
 
-            List<Double> maxQueueList = new ArrayList<Double>();
+            List<Double> maxQueueList = new ArrayList<>();
 
             for (CollectorSizeQueue c : collectorsSQ){
                 maxQueueList.add(c.getMaxSizeQueue());
@@ -151,10 +157,10 @@ import com.laboratorio.scenario.SelectionPolicy;
             
             for (int i = 0; i < numServers; i++){
                 int aux = i + 1;
-                List<Double> maxTimeLeisure = new ArrayList<Double>();
-                List<Double> minTimeLeisure = new ArrayList<Double>();
-                List<Double> finalDurability = new ArrayList<Double>();
-                List<Double> averageTimeLeisure = new ArrayList<Double>();
+                List<Double> maxTimeLeisure = new ArrayList<>();
+                List<Double> minTimeLeisure = new ArrayList<>();
+                List<Double> finalDurability = new ArrayList<>();
+                List<Double> averageTimeLeisure = new ArrayList<>();
                 
                 System.out.println(subSeparator);
                 System.out.println("  -> SERVER " + aux);

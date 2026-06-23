@@ -2,10 +2,10 @@ package com.laboratorio.scenario;
 
 import java.util.List;
 
+import com.laboratorio.collectors.CollectorServerStats;
 import com.laboratorio.collectors.CollectorSizeQueue;
 import com.laboratorio.collectors.CollectorTimeOnSystem;
 import com.laboratorio.collectors.CollectorTimeWait;
-import com.laboratorio.collectors.CollectorServerStats;
 import com.laboratorio.dominio.Behavior;
 import com.laboratorio.dominio.Distribution;
 import com.laboratorio.dominio.Entity;
@@ -89,11 +89,13 @@ public class Arrival implements Event {
 
             collectorsST.get(server.getId()-1).collect(clock - server.getLastEntityClock());
 
+            server.setDurability(this.durabilityDistribution.sample());
+
             server.setEntity(this.entity);
 
             double deltaTime = this.eoSBehavior.behavior(this.eoSDistributions, this.clock);
-            fel.insert(new EndOfService(this.clock + deltaTime, this.entity, this.eoSDistributions, this.collectorToS,
-                    this.collectorWait, this.eoSBehavior));
+            fel.insert(new EndOfService(this.clock + deltaTime, this.entity, this.eoSDistributions, this.durabilityDistribution,
+                        this.collectorToS, this.collectorWait, this.eoSBehavior));
 
         }
         double deltaTime = this.behavior.behavior(this.arrivalDistributions, this.clock);
@@ -101,6 +103,5 @@ public class Arrival implements Event {
                 this.durabilityDistribution, this.collectorToS, this.collectorWait, this.collectorSQ, this.collectorsST,
                 this.selectionPolicy, this.behavior, this.eoSBehavior));
 
-        server.setDurability(this.durabilityDistribution.sample());
     }
 }

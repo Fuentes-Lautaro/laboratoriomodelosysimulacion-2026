@@ -33,14 +33,14 @@ import com.laboratorio.dominio.ServerSelectionPolicy;
 public class AirportSim implements Engine {
 
     private final double simLenght;
-    private FutureEventList fel;
-    private List<Server> servers;
-    private List<Queue> queues;
-    private ServerSelectionPolicy serverSelectionPolicy;
-    private CollectorTimeOnSystem collectorToS;
-    private CollectorTimeWait collectorWait;
-    private CollectorSizeQueue collectorSQ;
-    private List<CollectorServerStats> collectorsST;
+    private final FutureEventList fel;
+    private final List<Server> servers;
+    private final List<Queue> queues;
+    private final ServerSelectionPolicy serverSelectionPolicy;
+    private final CollectorTimeOnSystem collectorToS;
+    private final CollectorTimeWait collectorWait;
+    private final CollectorSizeQueue collectorSQ;
+    private final List<CollectorServerStats> collectorsST;
 
     public AirportSim(double simLenght, int numServers, int numQueues, ModelSpecificator model,
                         ServerSelectionPolicy serverSelectionPolicy, 
@@ -97,7 +97,7 @@ public class AirportSim implements Engine {
     @Override
     public void run() {
 
-        //System.out.println(this.fel);
+       // System.out.println(this.fel);
 
         Event e = this.fel.imminent();
 
@@ -107,7 +107,7 @@ public class AirportSim implements Engine {
 
             e.planificate(this.fel, this.servers);
 
-//            System.out.println(this.fel);
+            //System.out.println(this.fel);
 
             e = this.fel.imminent();
             clock = e.getClock();
